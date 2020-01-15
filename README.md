@@ -1,2 +1,3 @@
-# NyxWeb-server-ts
-NyxWeb muonline website server
+# NyxWeb Server (TypeScript)
+
+NyxWeb muonline website - server
