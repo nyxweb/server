@@ -1,21 +1,18 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize } from 'sequelize-typescript';
 import 'dotenv/config';
 
-const sequelize = new Sequelize(
-  'MuOnline',
-  process.env.DB_USER,
-  process.env.DB_PASS,
-  {
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT),
-    dialect: 'mssql',
-    pool: {
-      max: 5,
-      min: 0,
-      acquire: 30000,
-      idle: 10000,
-    },
+const sequelize = new Sequelize({
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  database: process.env.DB_NAME,
+  username: 'sa',
+  password: process.env.DB_PASS,
+  dialect: 'mssql',
+  models: [__dirname + '/models/'],
+  logging: false,
+  define: {
+    freezeTableName: true,
   },
-);
+});
 
 export default sequelize;

@@ -1,4 +1,5 @@
 import express from 'express';
+import './db/sequelize';
 import router from './routes/router';
 
 const app = express();

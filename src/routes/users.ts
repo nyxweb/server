@@ -1,8 +1,8 @@
-import express, { Request, Response } from 'express';
+import { Router, Request, Response } from 'express';
 
-import charModel from '../db/models/Character';
+// import charModel from '../db/models/Character';
 
-const router = express.Router();
+const router = Router();
 
 /**
  * @PATH: /users - GET
@@ -10,15 +10,20 @@ const router = express.Router();
  */
 
 router.get('/', async (req: Request, res: Response) => {
-  const Character = charModel();
+  res.send('characters');
+  // try {
+  //   const Character = charModel();
 
-  const character = await Character.findOne({
-    where: { Name: 'Dea7h' },
-    attributes: ['AccountID', 'Name'],
-    raw: true,
-  });
+  //   const character = await Character.findOne({
+  //     where: { Name: 'Dea7h' },
+  //     attributes: ['AccountID', 'Name'],
+  //     raw: true,
+  //   });
 
-  res.json(character);
+  //   res.json(character);
+  // } catch (error) {
+  //   console.log('woops:', error.message);
+  // }
 });
 
 /**

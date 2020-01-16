@@ -1,13 +1,26 @@
-import express, { Request, Response } from 'express';
+import { Router, Request, Response } from 'express';
 
-const router = express.Router();
+import { Character } from '../db/models/Character';
 
-router.get('/', (req: Request, res: Response) => {
-  res.send('/characters :GET');
+const characters = Router();
+
+characters.get('/', async (req: Request, res: Response) => {
+  try {
+    const getOne = await Character.findOne({
+      where: {
+        Name: 'Dea7h',
+      },
+    });
+
+    res.json(getOne);
+  } catch (error) {
+    console.log('error:', error.message);
+    res.status(500).send('Server error');
+  }
 });
 
-router.post('/', (req: Request, res: Response) => {
+characters.post('/', (req: Request, res: Response) => {
   res.send('/characters :POST');
 });
 
-export default router;
+export default characters;
