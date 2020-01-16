@@ -6,13 +6,12 @@ const characters = Router();
 
 characters.get('/', async (req: Request, res: Response) => {
   try {
-    const getOne = await Character.findOne({
-      where: {
-        Name: 'Dea7h',
-      },
+    const getAll = await Character.findAll({
+      limit: 50,
+      attributes: ['Name', 'Resets'],
     });
 
-    res.json(getOne);
+    res.json(getAll);
   } catch (error) {
     console.log('error:', error.message);
     res.status(500).send('Server error');

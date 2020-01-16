@@ -11,7 +11,7 @@
     "prestart": "yarn build",
     "start": "node .",
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
-    "dev": "yarn clear && tsc",
+    "dev": "yarn test && yarn clear && tsc",
     "postdev": "node dist/app.js"
   },
   "repository": {
