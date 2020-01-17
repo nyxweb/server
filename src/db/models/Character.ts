@@ -1,8 +1,8 @@
 import { Table, Column, Model } from 'sequelize-typescript';
 
 @Table
-export class Character extends Model<Character> {
-  @Column
+export default class Character extends Model<Character> {
+  @Column({ primaryKey: true })
   public AccountID: string;
 
   @Column

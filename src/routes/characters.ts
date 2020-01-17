@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 
-import { Character } from '../db/models/Character';
+import Character from '../db/models/Character';
 
 const characters = Router();
 

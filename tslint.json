@@ -8,7 +8,9 @@
     "ordered-imports": false,
     "object-literal-sort-keys": false,
     "no-angle-bracket-type-assertion": false,
-    "callable-types": false
+    "callable-types": false,
+    "class-name": false,
+    "variable-name": false
   },
   "rulesDirectory": []
 }
