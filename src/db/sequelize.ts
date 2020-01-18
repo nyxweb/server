@@ -1,5 +1,4 @@
 import { Sequelize } from 'sequelize-typescript';
-import 'dotenv/config';
 
 const sequelize = new Sequelize({
   host: process.env.DB_HOST,

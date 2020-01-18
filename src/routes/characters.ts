@@ -1,22 +1,20 @@
 import { Router, Request, Response } from 'express';
 
-import Character from '../db/models/Character';
+import action from '../actions/characters/export';
 
 const characters = Router();
 
-characters.get('/', async (req: Request, res: Response) => {
-  try {
-    const getAll = await Character.findAll({
-      limit: 50,
-      attributes: ['Name', 'Resets'],
-    });
+/**
+ * @PATH: /characters - GET
+ * @DESC: Returns all characters
+ */
 
-    res.json(getAll);
-  } catch (error) {
-    console.log('error:', error.message);
-    res.status(500).send('Server error');
-  }
-});
+characters.get('/', action.get);
+
+/**
+ * @PATH: /characters - POST
+ * @DESC: Creates a new character
+ */
 
 characters.post('/', (req: Request, res: Response) => {
   res.send('/characters :POST');

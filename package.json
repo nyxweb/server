@@ -2,17 +2,13 @@
   "name": "nyxweb-server-ts",
   "version": "1.0.0",
   "description": "muonline website server-side typescript",
-  "main": "dist/bundle.js",
+  "main": "build/app.js",
   "scripts": {
-    "clear": "rm -r dist/* || true",
-    "prebuild": "yarn clear && tslint -c tslint.json -p tsconfig.json",
-    "build": "webpack",
-    "postbuild": "yarn test",
-    "prestart": "yarn build",
-    "start": "node .",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
-    "dev": "yarn test && yarn clear && tsc",
-    "postdev": "node dist/app.js"
+    "predev": "yarn lint && yarn test",
+    "dev": "env NODE_ENV=development nodemon src/app.ts",
+    "start": "env NODE_ENV=production tsc && node ."
   },
   "repository": {
     "type": "git",
@@ -49,11 +45,9 @@
     "@types/validator": "^12.0.1",
     "chai": "^4.2.0",
     "mocha": "^7.0.0",
-    "ts-loader": "^6.2.1",
+    "nodemon": "^2.0.2",
     "ts-node": "^8.6.2",
     "tslint": "^5.20.1",
-    "typescript": "^3.7.4",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "typescript": "^3.7.5"
   }
 }

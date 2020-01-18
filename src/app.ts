@@ -1,12 +1,12 @@
-import express from 'express';
+import express, { Application } from 'express';
+import 'dotenv/config';
 import './db/sequelize';
+
 import router from './routes/router';
 
-const app = express();
-const port = 2000;
+const app: Application = express();
+const port = process.env.PORT || 2000;
 
 app.use(router);
 
-app.listen(port, () =>
-  console.log('\x1b[36m', `SERVER STARTED (PORT: ${port})`, '\x1b[0m'),
-);
+app.listen(port, () => console.log(`\n * SERVER STARTED ON PORT ${port} *\n`));
