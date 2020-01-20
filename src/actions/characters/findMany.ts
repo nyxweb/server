@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { Op } from 'sequelize';
 import errorHandler from '../../tools/errorHandler';
 
 // Models
@@ -8,6 +9,9 @@ export default async (req: Request, res: Response) => {
   try {
     const getAll = await Character.findAll({
       limit: 50,
+      where: {
+        Name: { [Op.like]: `%${req.params.name}%` },
+      },
       attributes: ['Name', 'Resets'],
     });
 

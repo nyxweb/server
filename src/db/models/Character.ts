@@ -1,7 +1,16 @@
-import { Table, Column, Model } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  ForeignKey,
+  BelongsTo,
+  addAssociation,
+} from 'sequelize-typescript';
+import MEMB_STAT from './MEMB_STAT';
 
 @Table
 export default class Character extends Model<Character> {
+  @ForeignKey(() => MEMB_STAT)
   @Column({ primaryKey: true })
   public AccountID: string;
 

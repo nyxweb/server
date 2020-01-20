@@ -6,10 +6,12 @@ const characters = Router();
 
 /**
  * @PATH: /characters - GET
- * @DESC: Returns all characters
+ * @DESC: Returns characters
  */
 
-characters.get('/', action.get);
+characters.get('/', action.getMany);
+characters.get('/:name', action.getOne);
+characters.get('/find/:name', action.findMany);
 
 /**
  * @PATH: /characters - POST
