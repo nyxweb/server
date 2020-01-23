@@ -8,9 +8,14 @@ import MEMB_STAT from '../../db/models/MEMB_STAT';
 export default async (req: Request, res: Response) => {
   try {
     const getAll = await Character.findAll({
-      limit: 50,
+      limit: 1,
       attributes: ['Name', 'Resets'],
-      include: [MEMB_STAT],
+      include: [
+        {
+          model: MEMB_STAT,
+          attributes: ['ConnectStat', 'ConnectTM', 'DisConnectTM', 'TotalTime']
+        }
+      ]
     });
 
     res.json(getAll);

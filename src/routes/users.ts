@@ -1,23 +1,26 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 
-import action from '../actions/users/export';
+// Validation
+import validator from '../checks/validator';
+import check from '../checks/users';
 
-const users = Router();
+// Actions
+import action from '../actions/users';
+
+const usersRouter = Router();
 
 /**
  * @PATH: /users - GET
  * @DESC: Returns all users
  */
 
-users.get('/', action.get);
+usersRouter.get('/', action.get);
 
 /**
  * @PATH: /users - POST
  * @DESC: Creates a new user
  */
 
-users.post('/', (req: Request, res: Response) => {
-  res.send('/users :POST');
-});
+usersRouter.post('/', check.create, validator, action.create);
 
-export default users;
+export default usersRouter;

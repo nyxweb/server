@@ -3,15 +3,15 @@ import {
   Column,
   Model,
   ForeignKey,
-  BelongsTo,
-  addAssociation,
+  BelongsTo
 } from 'sequelize-typescript';
+
 import MEMB_STAT from './MEMB_STAT';
 
 @Table
 export default class Character extends Model<Character> {
   @ForeignKey(() => MEMB_STAT)
-  @Column({ primaryKey: true })
+  @Column
   public AccountID: string;
 
   @Column
@@ -139,4 +139,7 @@ export default class Character extends Model<Character> {
 
   @Column
   public TotalTime: number;
+
+  @BelongsTo(() => MEMB_STAT)
+  public status: MEMB_STAT;
 }

@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 
-import action from '../actions/characters/export';
+import action from '../actions/characters';
 
 const characters = Router();
 

@@ -1,19 +1,31 @@
-const nodeExternals = require('webpack-node-externals');
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
+const nodemonPlugin = require('nodemon-webpack-plugin');
 
 module.exports = {
+  name: 'deployment',
   target: 'node',
   entry: './src/app.ts',
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js']
   },
   output: {
-    path: path.resolve(__dirname, 'webpack-build'),
     filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
   },
   module: {
-    rules: [{ test: /\.ts$/, use: 'ts-loader' }],
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: [/node_modules/, /client/]
+      }
+    ]
   },
-  externals: [nodeExternals()],
+  optimization: {
+    usedExports: true
+  },
+  plugins: [new nodemonPlugin()],
+  externals: [nodeExternals()]
 };

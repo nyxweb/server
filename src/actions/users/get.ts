@@ -6,7 +6,7 @@ export default async (req: Request, res: Response) => {
   try {
     const getAll = await MEMB_INFO.findAll({
       limit: 5,
-      attributes: ['memb___id', 'mail_addr'],
+      attributes: ['memb___id', 'mail_addr']
     });
 
     res.json(getAll);

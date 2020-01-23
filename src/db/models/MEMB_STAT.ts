@@ -1,9 +1,10 @@
-import { Table, Column, Model, HasOne } from 'sequelize-typescript';
+import { Table, Column, Model, HasMany } from 'sequelize-typescript';
+
+// Models
 import Character from './Character';
 
 @Table
 export default class MEMB_STAT extends Model<MEMB_STAT> {
-  @HasOne(() => Character)
   @Column({ primaryKey: true })
   public memb___id: string;
 
@@ -18,4 +19,7 @@ export default class MEMB_STAT extends Model<MEMB_STAT> {
 
   @Column
   public TotalTime: number;
+
+  @HasMany(() => Character)
+  public characters: Character[];
 }

@@ -3,12 +3,21 @@
   "version": "1.0.0",
   "description": "muonline website server-side typescript",
   "main": "build/app.js",
+  "license": "MIT",
   "scripts": {
-    "lint": "tslint -c tslint.json -p tsconfig.json",
-    "test": "mocha -r ts-node/register test/**/*.spec.ts",
-    "predev": "yarn lint && yarn test",
-    "dev": "env NODE_ENV=development nodemon src/app.ts",
-    "start": "env NODE_ENV=production tsc && node ."
+    "lint": "tslint -p tsconfig.json",
+    "prebuild": "yarn lint",
+    "build": "tsc",
+    "pretest": "yarn build",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "test:coverage": "jest --coverage",
+    "prebundle": "yarn lint",
+    "bundle": "env NODE_ENV=production webpack",
+    "prestart": "yarn bundle",
+    "start": "node .",
+    "predev": "yarn lint",
+    "dev": "env NODE_ENV=development webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -23,14 +32,16 @@
     "sequelize"
   ],
   "author": "Dea7h",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Dea7h-cyber/NyxWeb-server-ts/issues"
   },
   "homepage": "https://github.com/Dea7h-cyber/NyxWeb-server-ts#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-validator": "^6.3.1",
+    "jsonwebtoken": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.21.3",
     "sequelize-typescript": "^1.1.0",
@@ -44,10 +55,16 @@
     "@types/node": "^13.1.7",
     "@types/validator": "^12.0.1",
     "chai": "^4.2.0",
+    "jest": "^25.1.0",
     "mocha": "^7.0.0",
     "nodemon": "^2.0.2",
+    "nodemon-webpack-plugin": "^4.2.2",
+    "ts-loader": "^6.2.1",
     "ts-node": "^8.6.2",
     "tslint": "^5.20.1",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-node-externals": "^1.7.2"
   }
 }
