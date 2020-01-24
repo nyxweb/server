@@ -1,22 +1,25 @@
+// Types
 import { Request, Response } from 'express';
+
+// Tools
+import logger from '../../tools/logger';
 import { Op } from 'sequelize';
-import errorHandler from '../../tools/errorHandler';
 
 // Models
-import Character from '../../db/models/Character';
+import { Character } from '../../db/models';
 
 export default async (req: Request, res: Response) => {
   try {
-    const getAll = await Character.findAll({
+    const result = await Character.findAll({
       limit: 50,
       where: {
-        Name: { [Op.like]: `%${req.params.name}%` },
+        Name: { [Op.like]: `%${req.params.name}%` }
       },
-      attributes: ['Name', 'Resets'],
+      attributes: ['Name', 'Resets']
     });
 
-    res.json(getAll);
+    res.json(result.length ? result : { error: 'No results' });
   } catch (error) {
-    errorHandler({ res, error, __filename });
+    logger.error({ error, res });
   }
 };

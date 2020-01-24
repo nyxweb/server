@@ -9,6 +9,9 @@ export default class MEMB_INFO extends Model<MEMB_INFO> {
   public memb__pwd: string;
 
   @Column
+  public jwt_token: string;
+
+  @Column
   public memb_name: string;
 
   @Default('unknown')

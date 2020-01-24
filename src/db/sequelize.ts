@@ -1,9 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 
 // Models
-import Character from './models/Character';
-import MEMB_INFO from './models/MEMB_INFO';
-import MEMB_STAT from './models/MEMB_STAT';
+import { Character, MEMB_INFO, MEMB_STAT } from './models';
 
 const sequelize = new Sequelize({
   host: process.env.DB_HOST,

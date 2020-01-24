@@ -6,7 +6,7 @@ import {
   BelongsTo
 } from 'sequelize-typescript';
 
-import MEMB_STAT from './MEMB_STAT';
+import { MEMB_STAT } from '.';
 
 @Table
 export default class Character extends Model<Character> {

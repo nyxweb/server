@@ -1,13 +1,15 @@
+// Types
 import { Request, Response } from 'express';
-import errorHandler from '../../tools/errorHandler';
+
+// Tools
+import logger from '../../tools/logger';
 
 // Models
-import Character from '../../db/models/Character';
-import MEMB_STAT from '../../db/models/MEMB_STAT';
+import { Character, MEMB_STAT } from '../../db/models';
 
 export default async (req: Request, res: Response) => {
   try {
-    const getAll = await Character.findAll({
+    const result = await Character.findAll({
       limit: 1,
       attributes: ['Name', 'Resets'],
       include: [
@@ -18,8 +20,8 @@ export default async (req: Request, res: Response) => {
       ]
     });
 
-    res.json(getAll);
+    res.json(result.length ? result : { error: 'No results' });
   } catch (error) {
-    errorHandler({ res, error, __filename });
+    logger.error({ error, res });
   }
 };

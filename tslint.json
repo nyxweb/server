@@ -11,7 +11,9 @@
     "class-name": false,
     "variable-name": false,
     "quotemark": false,
-    "trailing-comma": false
+    "trailing-comma": false,
+    "arrow-parens": false,
+    "interface-name": false
   },
   "rulesDirectory": []
 }

@@ -1,8 +1,11 @@
+// Types
 import { Request, Response } from 'express';
-import errorHandler from '../../tools/errorHandler';
+
+// Tools
+import logger from '../../tools/logger';
 
 // Models
-import MEMB_INFO from '../../db/models/MEMB_INFO';
+import { MEMB_INFO } from '../../db/models';
 
 export default async (req: Request, res: Response) => {
   try {
@@ -19,19 +22,16 @@ export default async (req: Request, res: Response) => {
       return res.json({ error: 'This E-Mail address is already in use' });
     }
 
-    // Creating new user
-    const User = MEMB_INFO.build();
-
-    User.memb___id = username;
-    User.memb__pwd = password;
-    User.mail_addr = email;
-    User.memb_name = Date.now().toString();
-    User.reg_ip = req.ip;
-
-    await User.save();
+    await MEMB_INFO.create({
+      memb___id: username,
+      memb__pwd: password,
+      mail_addr: email,
+      memb_name: Date.now().toString(),
+      reg_ip: req.ip
+    });
 
     res.json({ success: 'Registration successful' });
   } catch (error) {
-    errorHandler({ res, error, __filename });
+    logger.error({ error, res });
   }
 };

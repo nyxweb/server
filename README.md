@@ -6,6 +6,7 @@
 
 ```
 PORT=server port
+JWT_KEY=mySecretKey
 DB_NAME=name
 DB_USER=user
 DB_PASS=password

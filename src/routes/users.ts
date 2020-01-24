@@ -18,7 +18,7 @@ usersRouter.get('/', action.get);
 
 /**
  * @PATH: /users - POST
- * @DESC: Creates a new user
+ * @DESC: Creates a new user account
  */
 
 usersRouter.post('/', check.create, validator, action.create);

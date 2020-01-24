@@ -1,7 +1,7 @@
 import { Table, Column, Model, HasMany } from 'sequelize-typescript';
 
 // Models
-import Character from './Character';
+import { Character } from '.';
 
 @Table
 export default class MEMB_STAT extends Model<MEMB_STAT> {
