@@ -1,5 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+
+// Types
+import { Request, Response, NextFunction } from 'express';
 
 // Tools
 import logger from '../tools/logger';
@@ -12,7 +14,7 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.header('auth-token');
 
     if (!token) {
-      return res.status(401).json({ error: 'No token' });
+      return res.status(401).json({ error: 'Not authorized' });
     }
 
     const decode = jwt.verify(token, process.env.JWT_KEY);

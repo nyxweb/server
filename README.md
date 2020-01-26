@@ -13,3 +13,12 @@ DB_PASS=password
 DB_HOST=host
 DB_PORT=port
 ```
+
+## Additional columns
+
+##### MEMB_INFO
+
+```
+jwt_token varchar(100)
+admin_lvl int default 0
+```

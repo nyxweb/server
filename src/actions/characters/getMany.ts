@@ -7,7 +7,7 @@ import logger from '../../tools/logger';
 // Models
 import { Character, MEMB_STAT } from '../../db/models';
 
-export default async (req: Request, res: Response) => {
+const getMany = async (req: Request, res: Response) => {
   try {
     const result = await Character.findAll({
       limit: 1,
@@ -25,3 +25,5 @@ export default async (req: Request, res: Response) => {
     logger.error({ error, res });
   }
 };
+
+export default getMany;

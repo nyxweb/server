@@ -8,7 +8,7 @@ import { Op } from 'sequelize';
 // Models
 import { Character } from '../../db/models';
 
-export default async (req: Request, res: Response) => {
+const findMany = async (req: Request, res: Response) => {
   try {
     const result = await Character.findAll({
       limit: 50,
@@ -23,3 +23,5 @@ export default async (req: Request, res: Response) => {
     logger.error({ error, res });
   }
 };
+
+export default findMany;

@@ -7,7 +7,7 @@ import logger from '../../tools/logger';
 // Models
 import { MEMB_INFO } from '../../db/models';
 
-export default async (req: Request, res: Response) => {
+const get = async (req: Request, res: Response) => {
   try {
     const result = await MEMB_INFO.findAll({
       limit: 5,
@@ -19,3 +19,5 @@ export default async (req: Request, res: Response) => {
     logger.error({ error, res });
   }
 };
+
+export default get;

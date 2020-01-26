@@ -1,26 +1,33 @@
 import { Router } from 'express';
 
 // Validation
-import validator from '../checks/validator';
+import validator from '../middleware/validator';
 import check from '../checks/users';
 
 // Actions
-import action from '../actions/users';
+import users from '../actions/users';
 
-const usersRouter = Router();
+const router = Router();
 
 /**
  * @PATH: /users - GET
  * @DESC: Returns all users
  */
 
-usersRouter.get('/', action.get);
+router.get('/', users.get);
+
+/**
+ * @PATH: /users/auth - POST
+ * @DESC: Authenticates a user
+ */
+
+router.post('/auth', check.auth, validator, users.auth);
 
 /**
  * @PATH: /users - POST
  * @DESC: Creates a new user account
  */
 
-usersRouter.post('/', check.create, validator, action.create);
+router.post('/', check.create, validator, users.create);
 
-export default usersRouter;
+export default router;

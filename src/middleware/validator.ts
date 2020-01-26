@@ -1,5 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
+
+// Types
+import { Request, Response, NextFunction } from 'express';
 
 const validator = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);

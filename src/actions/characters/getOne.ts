@@ -7,7 +7,7 @@ import logger from '../../tools/logger';
 // Models
 import { Character } from '../../db/models';
 
-export default async (req: Request, res: Response) => {
+const getOne = async (req: Request, res: Response) => {
   try {
     const result = await Character.findOne({
       where: {
@@ -21,3 +21,5 @@ export default async (req: Request, res: Response) => {
     logger.error({ error, res });
   }
 };
+
+export default getOne;

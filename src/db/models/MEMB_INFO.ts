@@ -45,4 +45,7 @@ export default class MEMB_INFO extends Model<MEMB_INFO> {
 
   @Column
   public reg_ip: string;
+
+  @Column
+  public admin_lvl: number;
 }

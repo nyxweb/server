@@ -7,7 +7,7 @@ import logger from '../../tools/logger';
 // Models
 import { MEMB_INFO } from '../../db/models';
 
-export default async (req: Request, res: Response) => {
+const create = async (req: Request, res: Response) => {
   try {
     const { username, password, email } = req.body;
 
@@ -35,3 +35,5 @@ export default async (req: Request, res: Response) => {
     logger.error({ error, res });
   }
 };
+
+export default create;

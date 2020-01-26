@@ -1,33 +1,31 @@
 import { Router } from 'express';
 
-// Authorization
-import auth from '../tools/auth';
-
 // Validation
-import validator from '../checks/validator';
+import validator from '../middleware/validator';
+import auth from '../middleware/auth';
 import check from '../checks/characters';
 
 // Actions
-import action from '../actions/characters';
+import characters from '../actions/characters';
 
-const characters = Router();
+const router = Router();
 
 /**
  * @PATH: /characters - GET
  * @DESC: Returns characters
  */
 
-characters.get('/', auth, action.getMany);
-characters.get('/:name', check.name, validator, action.getOne);
-characters.get('/find/:name', check.name, validator, action.findMany);
+router.get('/', auth, characters.getMany);
+router.get('/:name', check.name, validator, characters.getOne);
+router.get('/find/:name', check.name, validator, characters.findMany);
 
 /**
  * @PATH: /characters - POST
  * @DESC: Creates a new character
  */
 
-characters.post('/', (req, res) => {
+router.post('/', (req, res) => {
   res.send('/characters :POST');
 });
 
-export default characters;
+export default router;
