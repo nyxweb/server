@@ -5,11 +5,12 @@ import './db/sequelize';
 import router from './routes/router';
 
 const app: Application = express();
-const port = process.env.PORT || 2000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(router);
 
-app.listen(port, () => console.log(`\n* SERVER STARTED ON PORT ${port} *\n`));
+app.listen(process.env.PORT, () => {
+  console.log(`\n* SERVER STARTED ON PORT [${process.env.PORT}] *\n`);
+});

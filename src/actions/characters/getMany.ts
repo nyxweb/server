@@ -10,8 +10,9 @@ import { Character, MEMB_STAT } from '../../db/models';
 const getMany = async (req: Request, res: Response) => {
   try {
     const result = await Character.findAll({
-      limit: 1,
+      limit: 5,
       attributes: ['Name', 'Resets'],
+      order: [[{ model: MEMB_STAT, as: 'status' }, 'TotalTime', 'DESC']],
       include: [
         {
           model: MEMB_STAT,

@@ -12,12 +12,10 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
-    "prebundle": "yarn lint",
-    "bundle": "env NODE_ENV=production webpack",
-    "prestart": "yarn bundle",
+    "prestart": "tsc",
     "start": "node .",
     "predev": "yarn lint",
-    "dev": "env NODE_ENV=development webpack --watch"
+    "dev": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -60,6 +58,7 @@
     "mocha": "^7.0.0",
     "nodemon": "^2.0.2",
     "nodemon-webpack-plugin": "^4.2.2",
+    "ts-jest": "^25.0.0",
     "ts-loader": "^6.2.1",
     "ts-node": "^8.6.2",
     "tslint": "^5.20.1",

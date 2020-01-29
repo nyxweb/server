@@ -1,9 +1,11 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const nodemonPlugin = require('nodemon-webpack-plugin');
+require('dotenv').config();
 
 module.exports = {
   name: 'deployment',
+  mode: process.env.NODE_ENV,
   target: 'node',
   entry: './src/app.ts',
   mode: process.env.NODE_ENV,

@@ -15,7 +15,7 @@ const router = Router();
  * @DESC: Returns characters
  */
 
-router.get('/', auth, characters.getMany);
+router.get('/', characters.getMany);
 router.get('/:name', check.name, validator, characters.getOne);
 router.get('/find/:name', check.name, validator, characters.findMany);
 
@@ -24,7 +24,7 @@ router.get('/find/:name', check.name, validator, characters.findMany);
  * @DESC: Creates a new character
  */
 
-router.post('/', (req, res) => {
+router.post('/', auth, (req, res) => {
   res.send('/characters :POST');
 });
 
