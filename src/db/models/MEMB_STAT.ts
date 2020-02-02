@@ -1,10 +1,11 @@
-import { Table, Column, Model, HasMany } from 'sequelize-typescript';
+import { Table, Column, Model, ForeignKey } from 'sequelize-typescript';
 
 // Models
 import { Character } from '.';
 
 @Table
 export default class MEMB_STAT extends Model<MEMB_STAT> {
+  @ForeignKey(() => Character)
   @Column({ primaryKey: true })
   public memb___id: string;
 
@@ -19,7 +20,4 @@ export default class MEMB_STAT extends Model<MEMB_STAT> {
 
   @Column
   public TotalTime: number;
-
-  @HasMany(() => Character)
-  public characters: Character[];
 }

@@ -3,17 +3,20 @@ import {
   Column,
   Model,
   ForeignKey,
-  BelongsTo
+  BelongsTo,
+  HasOne
 } from 'sequelize-typescript';
 
-import { MEMB_STAT } from '.';
+import { MEMB_STAT, GuildMember, AccountCharacter } from '.';
 
 @Table
 export default class Character extends Model<Character> {
   @ForeignKey(() => MEMB_STAT)
-  @Column
+  @ForeignKey(() => AccountCharacter)
+  @Column({ primaryKey: true })
   public AccountID: string;
 
+  @ForeignKey(() => GuildMember)
   @Column
   public Name: string;
 
@@ -140,6 +143,12 @@ export default class Character extends Model<Character> {
   @Column
   public TotalTime: number;
 
-  @BelongsTo(() => MEMB_STAT)
+  @HasOne(() => MEMB_STAT)
   public status: MEMB_STAT;
+
+  @HasOne(() => AccountCharacter)
+  public account: AccountCharacter;
+
+  @BelongsTo(() => GuildMember)
+  public guild: GuildMember;
 }

@@ -24,6 +24,13 @@ router.get('/', users.get);
 router.post('/auth', check.auth, validator, users.auth);
 
 /**
+ * @PATH: /users/verify - POST
+ * @DESC: Verifies a user
+ */
+
+router.post('/verify', users.verify);
+
+/**
  * @PATH: /users - POST
  * @DESC: Creates a new user account
  */

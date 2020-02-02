@@ -10,6 +10,7 @@
     "outDir": "build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "resolveJsonModule": true,
     "paths": {
       "*": ["node_modules/*"]
     }

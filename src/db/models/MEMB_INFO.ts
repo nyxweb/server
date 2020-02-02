@@ -35,14 +35,6 @@ export default class MEMB_INFO extends Model<MEMB_INFO> {
   @Column
   public ctl1_code: number;
 
-  @Default(0)
-  @Column
-  public IsVip: number;
-
-  @Default(0)
-  @Column
-  public VipExpirationTime: number;
-
   @Column
   public reg_ip: string;
 

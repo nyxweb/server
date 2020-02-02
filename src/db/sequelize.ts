@@ -1,7 +1,14 @@
 import { Sequelize } from 'sequelize-typescript';
 
 // Models
-import { Character, MEMB_INFO, MEMB_STAT } from './models';
+import {
+  Character,
+  MEMB_INFO,
+  MEMB_STAT,
+  Guild,
+  GuildMember,
+  AccountCharacter
+} from './models';
 
 const sequelize = new Sequelize({
   database: process.env.DB_NAME,
@@ -17,6 +24,13 @@ const sequelize = new Sequelize({
   }
 });
 
-sequelize.addModels([Character, MEMB_INFO, MEMB_STAT]);
+sequelize.addModels([
+  Character,
+  MEMB_INFO,
+  MEMB_STAT,
+  Guild,
+  GuildMember,
+  AccountCharacter
+]);
 
 export default sequelize;

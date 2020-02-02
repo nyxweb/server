@@ -5,18 +5,55 @@ import { Request, Response } from 'express';
 import logger from '../../tools/logger';
 
 // Models
-import { Character, MEMB_STAT } from '../../db/models';
+import {
+  Character,
+  MEMB_STAT,
+  GuildMember,
+  Guild,
+  AccountCharacter
+} from '../../db/models';
 
 const getMany = async (req: Request, res: Response) => {
   try {
     const result = await Character.findAll({
       limit: 5,
-      attributes: ['Name', 'Resets'],
-      order: [[{ model: MEMB_STAT, as: 'status' }, 'TotalTime', 'DESC']],
+      attributes: [
+        'Name',
+        'Class',
+        'cLevel',
+        'Resets',
+        'Money',
+        'PkCount',
+        'QuestNumber',
+        'TotalTime'
+      ],
+      // order: [[{ model: MEMB_STAT, as: 'status' }, 'TotalTime', 'DESC']],
+      order: [['Resets', 'DESC']],
       include: [
         {
           model: MEMB_STAT,
           attributes: ['ConnectStat', 'ConnectTM', 'DisConnectTM', 'TotalTime']
+        },
+        {
+          model: AccountCharacter,
+          attributes: [
+            'GameID1',
+            'GameID2',
+            'GameID3',
+            'GameID4',
+            'GameID5',
+            'GameIDC'
+          ]
+        },
+        {
+          model: GuildMember,
+          attributes: ['G_Name'],
+          include: [
+            {
+              model: Guild,
+              attributes: ['G_Mark']
+            }
+          ]
         }
       ]
     });

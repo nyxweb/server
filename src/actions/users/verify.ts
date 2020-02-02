@@ -1,18 +1,18 @@
 import jwt from 'jsonwebtoken';
 
 // Types
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 
 // Tools
-import logger from '../tools/logger';
+import logger from '../../tools/logger';
 
 // Models
-import { MEMB_INFO } from '../db/models';
+import { MEMB_INFO } from '../../db/models';
 
-const auth = async (req: Request, res: Response, next: NextFunction) => {
+const verify = async (req: Request, res: Response) => {
   try {
     const token = req.header('nyxAuthToken');
-
+    console.log(token);
     if (!token) {
       return res.status(403).json({ error: 'Not authorized' });
     }
@@ -30,11 +30,10 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
       return res.status(403).json({ error: 'Not authorized' });
     }
 
-    req.username = decode.username;
-    next();
+    res.json({ success: 'User verified' });
   } catch (error) {
     logger.error({ error, res });
   }
 };
 
-export default auth;
+export default verify;

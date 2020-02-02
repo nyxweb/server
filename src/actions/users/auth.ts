@@ -13,24 +13,19 @@ const auth = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
 
-    const findMatch = await MEMB_INFO.count({
+    const user = await MEMB_INFO.findOne({
       where: { memb___id: username, memb__pwd: password }
     });
 
-    if (!findMatch) {
-      return res.json({ error: 'Invalid Credentials' });
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid Credentials' });
     }
 
     const token = jwt.sign({ username }, process.env.JWT_KEY);
 
-    await MEMB_INFO.update(
-      {
-        jwt_token: token
-      },
-      {
-        where: { memb___id: username, memb__pwd: password }
-      }
-    );
+    await user.update({
+      jwt_token: token
+    });
 
     res.json({ success: 'Login successful', token });
   } catch (error) {
