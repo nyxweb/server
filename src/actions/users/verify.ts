@@ -12,7 +12,7 @@ import { MEMB_INFO } from '../../db/models';
 const verify = async (req: Request, res: Response) => {
   try {
     const token = req.header('nyxAuthToken');
-    console.log(token);
+
     if (!token) {
       return res.status(403).json({ error: 'Not authorized' });
     }

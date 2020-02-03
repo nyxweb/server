@@ -143,6 +143,9 @@ export default class Character extends Model<Character> {
   @Column
   public TotalTime: number;
 
+  @Column
+  public HOFWins: number;
+
   @HasOne(() => MEMB_STAT)
   public status: MEMB_STAT;
 

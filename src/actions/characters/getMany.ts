@@ -16,7 +16,7 @@ import {
 const getMany = async (req: Request, res: Response) => {
   try {
     const result = await Character.findAll({
-      limit: 5,
+      limit: 20,
       attributes: [
         'Name',
         'Class',
@@ -25,7 +25,8 @@ const getMany = async (req: Request, res: Response) => {
         'Money',
         'PkCount',
         'QuestNumber',
-        'TotalTime'
+        'TotalTime',
+        'HOFWins'
       ],
       // order: [[{ model: MEMB_STAT, as: 'status' }, 'TotalTime', 'DESC']],
       order: [['Resets', 'DESC']],

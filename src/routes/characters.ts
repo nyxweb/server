@@ -16,6 +16,7 @@ const router = Router();
  */
 
 router.get('/', characters.getMany);
+router.get('/hof', characters.getTopPlayers);
 router.get('/:name', check.name, validator, characters.getOne);
 router.get('/find/:name', check.name, validator, characters.findMany);
 
