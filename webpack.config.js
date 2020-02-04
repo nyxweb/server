@@ -1,14 +1,21 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const nodemonPlugin = require('nodemon-webpack-plugin');
-require('dotenv').config();
+const NodemonPlugin = require('nodemon-webpack-plugin');
 
 module.exports = {
   name: 'deployment',
   mode: process.env.NODE_ENV,
+  entry: './src/server.ts',
   target: 'node',
-  entry: './src/app.ts',
-  mode: process.env.NODE_ENV,
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: [/node_modules/]
+      }
+    ]
+  },
   resolve: {
     extensions: ['.ts', '.js']
   },
@@ -16,18 +23,10 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        use: 'ts-loader',
-        exclude: [/node_modules/, /client/]
-      }
-    ]
-  },
   optimization: {
+    minimize: false,
     usedExports: true
   },
-  plugins: [new nodemonPlugin()],
+  plugins: [new NodemonPlugin()],
   externals: [nodeExternals()]
 };

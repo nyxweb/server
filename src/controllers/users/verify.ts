@@ -1,3 +1,4 @@
+import { getManager } from 'typeorm';
 import jwt from 'jsonwebtoken';
 
 // Types
@@ -5,9 +6,6 @@ import { Request, Response } from 'express';
 
 // Tools
 import logger from '../../tools/logger';
-
-// Models
-import { MEMB_INFO } from '../../db/models';
 
 const verify = async (req: Request, res: Response) => {
   try {
@@ -19,7 +17,7 @@ const verify = async (req: Request, res: Response) => {
 
     const decode = jwt.verify(token, process.env.JWT_KEY);
 
-    const userCheck = await MEMB_INFO.count({
+    const userCheck = await getManager().count('MEMB_INFO', {
       where: {
         memb___id: decode.username,
         jwt_token: token

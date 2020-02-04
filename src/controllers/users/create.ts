@@ -1,3 +1,5 @@
+import { getManager } from 'typeorm';
+
 // Types
 import { Request, Response } from 'express';
 
@@ -5,14 +7,19 @@ import { Request, Response } from 'express';
 import logger from '../../tools/logger';
 
 // Models
-import { MEMB_INFO } from '../../db/models';
+import MEMB_INFO from '../../db/entity/MEMB_INFO';
 
 const create = async (req: Request, res: Response) => {
   try {
     const { username, password, email } = req.body;
 
-    const findUsername = await MEMB_INFO.findByPk(username);
-    const findEmail = await MEMB_INFO.findOne({ where: { mail_addr: email } });
+    const findUsername = await getManager().findOne(MEMB_INFO, {
+      where: { memb___id: username }
+    });
+
+    const findEmail = await getManager().findOne(MEMB_INFO, {
+      where: { mail_addr: email }
+    });
 
     if (findUsername) {
       return res.json({ error: 'This Username has already been taken' });
@@ -22,13 +29,15 @@ const create = async (req: Request, res: Response) => {
       return res.json({ error: 'This E-Mail address is already in use' });
     }
 
-    await MEMB_INFO.create({
-      memb___id: username,
-      memb__pwd: password,
-      mail_addr: email,
-      memb_name: Date.now().toString(),
-      reg_ip: req.ip
-    });
+    const newUser = new MEMB_INFO();
+
+    newUser.memb___id = username;
+    newUser.memb__pwd = password;
+    newUser.mail_addr = email;
+    newUser.memb_name = Date.now().toString();
+    newUser.reg_ip = req.ip;
+
+    await getManager().save(newUser);
 
     res.json({ success: 'Registration successful' });
   } catch (error) {

@@ -1,19 +1,18 @@
+import { getManager } from 'typeorm';
+
 // Types
 import { Request, Response } from 'express';
 
 // Tools
 import logger from '../../tools/logger';
 
-// Models
-import { Character } from '../../db/models';
-
 const getOne = async (req: Request, res: Response) => {
   try {
-    const result = await Character.findOne({
+    const result = await getManager().find('Character', {
       where: {
         Name: req.params.name
       },
-      attributes: ['Name', 'Resets']
+      select: ['Name', 'Resets']
     });
 
     res.json(result || { error: 'No result' });

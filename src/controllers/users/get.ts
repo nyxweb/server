@@ -1,17 +1,16 @@
+import { getManager } from 'typeorm';
+
 // Types
 import { Request, Response } from 'express';
 
 // Tools
 import logger from '../../tools/logger';
 
-// Models
-import { MEMB_INFO } from '../../db/models';
-
 const get = async (req: Request, res: Response) => {
   try {
-    const result = await MEMB_INFO.findAll({
-      limit: 5,
-      attributes: ['memb___id', 'mail_addr']
+    const result = await getManager().find('MEMB_INFO', {
+      take: 5,
+      select: ['memb___id', 'mail_addr']
     });
 
     res.json(result.length ? result : { error: 'No results' });
