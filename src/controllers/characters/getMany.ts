@@ -1,4 +1,4 @@
-import { getManager } from 'typeorm';
+import { getRepository } from 'typeorm';
 
 // Types
 import { Request, Response } from 'express';
@@ -8,23 +8,24 @@ import logger from '../../tools/logger';
 
 const getMany = async (req: Request, res: Response) => {
   try {
-    const result = await getManager().find('Character', {
-      take: 20,
-      select: [
-        'Name',
-        'Class',
-        'cLevel',
-        'Resets',
-        'Money',
-        'PkCount',
-        'QuestNumber',
-        'TotalTime',
-        'HOFWins'
-      ],
+    const result = await getRepository('Character').find({
+      // select: [
+      //   'Name',
+      //   'Class',
+      //   'cLevel',
+      //   'Resets',
+      //   'Money',
+      //   'PkCount',
+      //   'QuestNumber',
+      //   'TotalTime',
+      //   'HOFWins',
+      //   'status'
+      // ],
+      relations: ['status'],
       order: {
         Resets: 'DESC'
       },
-      relations: ['MEMB_STAT']
+      take: 1
     });
 
     res.json(result.length ? result : { error: 'No results' });

@@ -1,6 +1,7 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const NodemonPlugin = require('nodemon-webpack-plugin');
+const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 
 module.exports = {
   name: 'deployment',
@@ -27,6 +28,24 @@ module.exports = {
     minimize: false,
     usedExports: true
   },
-  plugins: [new NodemonPlugin()],
+  plugins: [
+    new NodemonPlugin(),
+    new FilterWarningsPlugin({
+      exclude: [
+        /mongodb/,
+        /mysql/,
+        /mysql2/,
+        /oracledb/,
+        /pg/,
+        /pg-native/,
+        /pg-query-stream/,
+        /react-native-sqlite-storage/,
+        /redis/,
+        /sqlite3/,
+        /sql.js/,
+        /typeorm-aurora-data-api-driver/
+      ]
+    })
+  ],
   externals: [nodeExternals()]
 };

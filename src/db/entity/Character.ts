@@ -1,10 +1,21 @@
-import { Entity, PrimaryColumn, Column, OneToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryColumn,
+  Column,
+  OneToOne,
+  JoinTable,
+  JoinColumn,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+  TableForeignKey
+} from 'typeorm';
 
 import MEMB_STAT from './MEMB_STAT';
 
 @Entity('Character')
 export default class Character {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   AccountID: string;
 
   @Column()
@@ -136,9 +147,10 @@ export default class Character {
   @Column()
   HOFWins: number;
 
-  @OneToOne(
+  @ManyToOne(
     type => MEMB_STAT,
-    status => status.character
+    status => status.memb___id
   )
+  @JoinColumn({ name: 'AccountID', referencedColumnName: 'memb___id' })
   status: MEMB_STAT;
 }

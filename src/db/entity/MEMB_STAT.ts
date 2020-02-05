@@ -1,9 +1,18 @@
-import { Entity, PrimaryColumn, Column, OneToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryColumn,
+  Column,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+  JoinColumn
+} from 'typeorm';
 import Character from './Character';
 
 @Entity('MEMB_STAT')
 export default class MEMB_STAT {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   memb___id: string;
 
   @Column()
@@ -18,9 +27,10 @@ export default class MEMB_STAT {
   @Column()
   TotalTime: number;
 
-  @OneToOne(
+  @OneToMany(
     type => Character,
-    character => character.status
+    character => character.AccountID
   )
-  character: Character;
+  // @JoinColumn({ name: 'memb___id', referencedColumnName: 'AccountID' })
+  characters: Character[];
 }
