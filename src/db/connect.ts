@@ -10,7 +10,7 @@ import MEMB_INFO from './entity/MEMB_INFO';
       type: 'mssql',
       url: process.env.TYPEORM_URL,
       entities: [Character, MEMB_STAT, MEMB_INFO],
-      migrations: ['../migrations/*.ts'],
+      // migrations: ['../migrations/*.ts'],
       logging: true
     });
 

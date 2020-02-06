@@ -1,4 +1,4 @@
-import { getRepository } from 'typeorm';
+import { getRepository, getManager } from 'typeorm';
 
 // Types
 import { Request, Response } from 'express';
@@ -8,7 +8,14 @@ import logger from '../../tools/logger';
 
 const getMany = async (req: Request, res: Response) => {
   try {
+    // const result = await getManager().find(Character);
+
     const result = await getRepository('Character').find({
+      order: {
+        cLevel: 'DESC'
+      },
+      select: ['Name'],
+
       // select: [
       //   'Name',
       //   'Class',
@@ -21,11 +28,9 @@ const getMany = async (req: Request, res: Response) => {
       //   'HOFWins',
       //   'status'
       // ],
-      relations: ['status'],
-      order: {
-        Resets: 'DESC'
-      },
-      take: 1
+      // relations: ['status'],
+      take: 2,
+      relations: ['status']
     });
 
     res.json(result.length ? result : { error: 'No results' });
