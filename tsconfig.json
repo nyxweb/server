@@ -1,20 +1,21 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
     "esModuleInterop": true,
     "target": "ES6",
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": false,
-    "baseUrl": "src",
+    "baseUrl": ".",
     "outDir": "build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
+    "removeComments": true,
     "paths": {
       "*": ["node_modules/*"]
     }
   },
   "include": ["src/**/*"],
-  "files": ["custom.d.ts"]
+  "files": ["src/types/custom.d.ts"]
 }

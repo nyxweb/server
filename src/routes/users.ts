@@ -4,8 +4,8 @@ import { Router } from 'express';
 import validator from '../middleware/validator';
 import check from '../checks/users';
 
-// Actions
-import users from '../actions/users';
+// Controllers
+import users from '../controllers/users';
 
 const router = Router();
 

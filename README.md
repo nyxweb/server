@@ -5,13 +5,11 @@
 ## Create an .env file
 
 ```
-PORT=server port
-JWT_KEY=mySecretKey
-DB_NAME=name
-DB_USER=user
-DB_PASS=password
-DB_HOST=host
-DB_PORT=port
+NODE_ENV = development
+PORT = 5000
+JWT_KEY = myJSONw3bt0k3n
+
+TYPEORM_URL = mssql://sa:thepasswordis1@localhost:60143/MuOnline
 ```
 
 ## Additional columns

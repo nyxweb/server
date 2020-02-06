@@ -1,21 +1,20 @@
+import { getManager, Like } from 'typeorm';
+
 // Types
 import { Request, Response } from 'express';
 
 // Tools
 import logger from '../../tools/logger';
-import { Op } from 'sequelize';
-
-// Models
-import { Character } from '../../db/models';
 
 const findMany = async (req: Request, res: Response) => {
   try {
-    const result = await Character.findAll({
-      limit: 50,
+    const result = await getManager().find('Character', {
+      take: 50,
       where: {
-        Name: { [Op.like]: `%${req.params.name}%` }
+        Name: Like(`%${req.params.name}%`)
       },
-      attributes: ['Name', 'Resets']
+      select: ['Name', 'Resets'],
+      relations: ['MEMB_STAT']
     });
 
     res.json(result.length ? result : { error: 'No results' });

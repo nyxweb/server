@@ -5,8 +5,8 @@ import validator from '../middleware/validator';
 import auth from '../middleware/auth';
 import check from '../checks/characters';
 
-// Actions
-import characters from '../actions/characters';
+// Controllers
+import characters from '../controllers/characters';
 
 const router = Router();
 
