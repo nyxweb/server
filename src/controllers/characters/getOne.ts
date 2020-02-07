@@ -1,24 +1,41 @@
-// import { getManager } from 'typeorm';
+// Types
+import { Request, Response } from 'express';
 
-// // Types
-// import { Request, Response } from 'express';
+// Tools
+import logger from '../../tools/logger';
 
-// // Tools
-// import logger from '../../tools/logger';
+// Models
+import model from '../../db/models';
 
-// const getOne = async (req: Request, res: Response) => {
-//   try {
-//     const result = await getManager().find('Character', {
-//       where: {
-//         Name: req.params.name
-//       },
-//       select: ['Name', 'Resets']
-//     });
+const getOne = async (req: Request, res: Response) => {
+  try {
+    const { name: Name } = req.params;
 
-//     res.json(result || { error: 'No result' });
-//   } catch (error) {
-//     logger.error({ error, res });
-//   }
-// };
+    const result = await model.Character.findOne({
+      where: { Name },
+      attributes: {
+        exclude: ['Quest', 'Inventory', 'AccountID', 'MapPosX', 'MapPosY']
+      },
+      include: [
+        {
+          model: model.MEMB_STAT,
+          attributes: {
+            exclude: ['memb___id']
+          }
+        },
+        {
+          model: model.AccountCharacter,
+          attributes: {
+            exclude: ['Id']
+          }
+        }
+      ]
+    });
 
-// export default getOne;
+    res.json(result);
+  } catch (error) {
+    logger.error({ error, res });
+  }
+};
+
+export default getOne;

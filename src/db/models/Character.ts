@@ -1,10 +1,11 @@
-import { Table, Column, Model, HasOne, ForeignKey } from 'sequelize-typescript';
+import { Table, Column, Model, HasOne, PrimaryKey } from 'sequelize-typescript';
 
+import AccountCharacter from './AccountCharacter';
 import MEMB_STAT from './MEMB_STAT';
 
 @Table
 export default class Character extends Model<Character> {
-  // @ForeignKey(() => MEMB_STAT)
+  @PrimaryKey
   @Column
   AccountID: string;
 
@@ -14,8 +15,8 @@ export default class Character extends Model<Character> {
   @Column
   cLevel: string;
 
-  @Column
-  LevelUpPoint: number;
+  // @Column
+  // LevelUpPoint: number;
 
   @Column
   Class: number;
@@ -23,41 +24,41 @@ export default class Character extends Model<Character> {
   @Column
   Experience: number;
 
-  @Column
-  Strength: number;
+  // @Column
+  // Strength: number;
 
-  @Column
-  Dexterity: number;
+  // @Column
+  // Dexterity: number;
 
-  @Column
-  Vitality: number;
+  // @Column
+  // Vitality: number;
 
-  @Column
-  Energy: number;
+  // @Column
+  // Energy: number;
 
-  @Column
-  Leadership: number;
+  // @Column
+  // Leadership: number;
 
   @Column
   Inventory: BinaryType;
 
-  @Column
-  MagicList: BinaryType;
+  // @Column
+  // MagicList: BinaryType;
 
   @Column
   Money: number;
 
-  @Column
-  Life: number;
+  // @Column
+  // Life: number;
 
-  @Column
-  MaxLife: number;
+  // @Column
+  // MaxLife: number;
 
-  @Column
-  Mana: number;
+  // @Column
+  // Mana: number;
 
-  @Column
-  MaxMana: number;
+  // @Column
+  // MaxMana: number;
 
   @Column
   MapNumber: number;
@@ -68,8 +69,8 @@ export default class Character extends Model<Character> {
   @Column
   MapPosY: number;
 
-  @Column
-  MapDir: number;
+  // @Column
+  // MapDir: number;
 
   @Column
   PkCount: number;
@@ -137,6 +138,9 @@ export default class Character extends Model<Character> {
   @Column
   HOFWins: number;
 
-  // @HasOne(() => MEMB_STAT)
-  // status: MEMB_STAT;
+  @HasOne(() => MEMB_STAT, { sourceKey: 'AccountID', foreignKey: 'memb___id' })
+  status: MEMB_STAT;
+
+  @HasOne(() => AccountCharacter, { sourceKey: 'Name', foreignKey: 'GameIDC' })
+  account: AccountCharacter;
 }

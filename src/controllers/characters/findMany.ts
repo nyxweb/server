@@ -1,26 +1,47 @@
-// import { getManager, Like } from 'typeorm';
+// Types
+import { Request, Response } from 'express';
+import { Op } from 'sequelize';
 
-// // Types
-// import { Request, Response } from 'express';
+// Tools
+import logger from '../../tools/logger';
 
-// // Tools
-// import logger from '../../tools/logger';
+// Models
+import model from '../../db/models';
 
-// const findMany = async (req: Request, res: Response) => {
-//   try {
-//     const result = await getManager().find('Character', {
-//       take: 50,
-//       where: {
-//         Name: Like(`%${req.params.name}%`)
-//       },
-//       select: ['Name', 'Resets'],
-//       relations: ['MEMB_STAT']
-//     });
+const findMany = async (req: Request, res: Response) => {
+  try {
+    const { name } = req.params;
+    const { limit = 10, offset = 1 } = req.query;
 
-//     res.json(result.length ? result : { error: 'No results' });
-//   } catch (error) {
-//     logger.error({ error, res });
-//   }
-// };
+    const result = await model.Character.findAll({
+      limit: Number(limit),
+      offset: Number(offset) - 1,
+      where: {
+        Name: { [Op.like]: `%${name}%` }
+      },
+      attributes: {
+        exclude: ['Quest', 'Inventory', 'AccountID', 'MapPosX', 'MapPosY']
+      },
+      include: [
+        {
+          model: model.MEMB_STAT,
+          attributes: {
+            exclude: ['memb___id']
+          }
+        },
+        {
+          model: model.AccountCharacter,
+          attributes: {
+            exclude: ['Id']
+          }
+        }
+      ]
+    });
 
-// export default findMany;
+    res.json(result.length ? result : { error: 'No results' });
+  } catch (error) {
+    logger.error({ error, res });
+  }
+};
+
+export default findMany;

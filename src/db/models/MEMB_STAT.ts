@@ -3,17 +3,19 @@ import {
   Column,
   Model,
   HasMany,
-  ForeignKey
+  PrimaryKey,
+  Default
 } from 'sequelize-typescript';
 
 import Character from './Character';
 
 @Table
 export default class MEMB_STAT extends Model<MEMB_STAT> {
-  // @ForeignKey(() => Character)
+  @PrimaryKey
   @Column
   memb___id: string;
 
+  @Default(0)
   @Column
   ConnectStat: number;
 
@@ -23,9 +25,10 @@ export default class MEMB_STAT extends Model<MEMB_STAT> {
   @Column
   DisConnectTM: string;
 
+  @Default(0)
   @Column
   TotalTime: number;
 
-  // @HasMany(() => Character)
-  // characters: Character[];
+  @HasMany(() => Character, { sourceKey: 'memb___id', foreignKey: 'AccountID' })
+  characters: Character[];
 }

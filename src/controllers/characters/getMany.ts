@@ -1,3 +1,5 @@
+import sequelize from 'sequelize';
+
 // Types
 import { Request, Response } from 'express';
 
@@ -5,13 +7,36 @@ import { Request, Response } from 'express';
 import logger from '../../tools/logger';
 
 // Models
-import Character from '../../db/models/Character';
+import model from '../../db/models';
 
 const getMany = async (req: Request, res: Response) => {
   try {
-    const result = await Character.findAll({ limit: 10 });
+    const { limit = 10, offset = 1 } = req.query;
 
-    res.json(result.length ? result : { error: 'No results' });
+    const result = await model.Character.findAll({
+      limit: Number(limit),
+      offset: Number(offset) - 1,
+      order: [['cLevel', 'DESC']],
+      attributes: {
+        exclude: ['Quest', 'Inventory', 'AccountID', 'MapPosX', 'MapPosY']
+      },
+      include: [
+        {
+          model: model.MEMB_STAT,
+          attributes: {
+            exclude: ['memb___id']
+          }
+        },
+        {
+          model: model.AccountCharacter,
+          attributes: {
+            exclude: ['Id']
+          }
+        }
+      ]
+    });
+
+    res.json(result);
   } catch (error) {
     logger.error({ error, res });
   }

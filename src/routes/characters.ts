@@ -2,7 +2,6 @@ import { Router } from 'express';
 
 // Validation
 import validator from '../middleware/validator';
-// import auth from '../middleware/auth';
 import check from '../checks/characters';
 
 // Controllers
@@ -15,10 +14,23 @@ const router = Router();
  * @DESC: Returns characters
  */
 
-router.get('/', characters.getMany);
+router.get('/', check.getMany, validator, characters.getMany);
+
+/**
+ * @PATH: /characters/:name - GET
+ * @DESC: Returns a single character
+ */
+
+router.get('/:name', check.getOne, validator, characters.getOne);
+
+/**
+ * @PATH: /characters/find/:name - GET
+ * @DESC: Returns characters based on a string (:name)
+ */
+
+router.get('/find/:name', check.findMany, validator, characters.findMany);
+
 // router.get('/hof', characters.getTopPlayers);
-// router.get('/:name', check.name, validator, characters.getOne);
-// router.get('/find/:name', check.name, validator, characters.findMany);
 
 /**
  * @PATH: /characters - POST

@@ -1,25 +1,26 @@
 import { Sequelize } from 'sequelize-typescript';
 
 // Models
-import { Character, MEMB_STAT } from './models';
+import model from './models';
 
 let connection;
 try {
-  connection = new Sequelize(
-    'mssql://sa:thepasswordis1@localhost:60143/MuOnline',
-    {
-      repositoryMode: true,
-      define: {
-        freezeTableName: true,
-        timestamps: false
-      }
-    }
-  );
-  console.log('DB SUCCESS');
+  connection = new Sequelize(process.env.SEQUELIZE_URL, {
+    define: {
+      freezeTableName: true,
+      timestamps: false
+    },
+    logging: false,
+    models: [
+      model.Character,
+      model.AccountCharacter,
+      model.MEMB_STAT,
+      model.MEMB_INFO
+    ]
+  });
+  console.log('Database connected...');
 } catch (error) {
-  console.log('DB FAIL');
+  console.log('Database failed to connect...');
 }
-
-connection.addModels([Character, MEMB_STAT]);
 
 export default connection;

@@ -1,6 +1,6 @@
 import { param } from 'express-validator';
 
-const nameCheck = [
+const getOne = [
   param('name')
     .isString()
     .withMessage('Invalid Character name')
@@ -8,4 +8,4 @@ const nameCheck = [
     .withMessage('Character name can only be between 1-10 characters')
 ];
 
-export default nameCheck;
+export default getOne;
