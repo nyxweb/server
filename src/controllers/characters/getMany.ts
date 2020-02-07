@@ -1,37 +1,15 @@
-import { getRepository, getManager } from 'typeorm';
-
 // Types
 import { Request, Response } from 'express';
 
 // Tools
 import logger from '../../tools/logger';
 
+// Models
+import Character from '../../db/models/Character';
+
 const getMany = async (req: Request, res: Response) => {
   try {
-    // const result = await getManager().find(Character);
-
-    const result = await getRepository('Character').find({
-      order: {
-        cLevel: 'DESC'
-      },
-      select: ['Name'],
-
-      // select: [
-      //   'Name',
-      //   'Class',
-      //   'cLevel',
-      //   'Resets',
-      //   'Money',
-      //   'PkCount',
-      //   'QuestNumber',
-      //   'TotalTime',
-      //   'HOFWins',
-      //   'status'
-      // ],
-      // relations: ['status'],
-      take: 2,
-      relations: ['status']
-    });
+    const result = await Character.findAll({ limit: 10 });
 
     res.json(result.length ? result : { error: 'No results' });
   } catch (error) {

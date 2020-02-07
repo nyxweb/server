@@ -1,21 +1,25 @@
-import { createConnection } from 'typeorm';
+import { Sequelize } from 'sequelize-typescript';
 
-import Character from './entity/Character';
-import MEMB_STAT from './entity/MEMB_STAT';
-import MEMB_INFO from './entity/MEMB_INFO';
+// Models
+import { Character, MEMB_STAT } from './models';
 
-(async () => {
-  try {
-    await createConnection({
-      type: 'mssql',
-      url: process.env.TYPEORM_URL,
-      entities: [Character, MEMB_STAT, MEMB_INFO],
-      // migrations: ['../migrations/*.ts'],
-      logging: true
-    });
+let connection;
+try {
+  connection = new Sequelize(
+    'mssql://sa:thepasswordis1@localhost:60143/MuOnline',
+    {
+      repositoryMode: true,
+      define: {
+        freezeTableName: true,
+        timestamps: false
+      }
+    }
+  );
+  console.log('DB SUCCESS');
+} catch (error) {
+  console.log('DB FAIL');
+}
 
-    console.log('Database connected...');
-  } catch (error) {
-    console.log('DB Failed: ', error.message);
-  }
-})();
+connection.addModels([Character, MEMB_STAT]);
+
+export default connection;
