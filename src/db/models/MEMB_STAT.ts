@@ -30,5 +30,5 @@ export default class MEMB_STAT extends Model<MEMB_STAT> {
   TotalTime: number;
 
   @HasMany(() => Character, { sourceKey: 'memb___id', foreignKey: 'AccountID' })
-  characters: Character[];
+  characters?: Character[];
 }

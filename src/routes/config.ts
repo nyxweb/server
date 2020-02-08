@@ -1,7 +1,11 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 
-// Configuration
-import events from '../configs/events.json';
+// Validation
+import validator from '../middleware/validator';
+import check from '../checks/config';
+
+// Controllers
+import config from '../controllers/config';
 
 const router = Router();
 
@@ -10,8 +14,13 @@ const router = Router();
  * @DESC: Returns an events list
  */
 
-router.get('/events', (req: Request, res: Response) => {
-  res.json(events);
-});
+router.get('/events', config.get.events);
+
+/**
+ * @PATH: /config/events - POST
+ * @DESC: Create a new event
+ */
+
+router.post('/events', check.create.events, validator, config.create.events);
 
 export default router;

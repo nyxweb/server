@@ -139,8 +139,8 @@ export default class Character extends Model<Character> {
   HOFWins: number;
 
   @HasOne(() => MEMB_STAT, { sourceKey: 'AccountID', foreignKey: 'memb___id' })
-  status: MEMB_STAT;
+  status?: MEMB_STAT;
 
   @HasOne(() => AccountCharacter, { sourceKey: 'Name', foreignKey: 'GameIDC' })
-  account: AccountCharacter;
+  account?: AccountCharacter;
 }

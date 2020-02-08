@@ -14,31 +14,27 @@ const router = Router();
  * @DESC: Returns characters
  */
 
-router.get('/', check.getMany, validator, characters.getMany);
+router.get('/', check.get.many, validator, characters.get.many);
+
+/**
+ * @PATH: /characters/search/:name - GET
+ * @DESC: Returns characters based on a string (:name)
+ */
+
+router.get('/search/:name', check.get.search, validator, characters.get.search);
+
+/**
+ * @PATH: /characters/hof - GET
+ * @DESC: Returns a list of 5 characters
+ */
+
+router.get('/hof', characters.get.hof);
 
 /**
  * @PATH: /characters/:name - GET
  * @DESC: Returns a single character
  */
 
-router.get('/:name', check.getOne, validator, characters.getOne);
-
-/**
- * @PATH: /characters/find/:name - GET
- * @DESC: Returns characters based on a string (:name)
- */
-
-router.get('/find/:name', check.findMany, validator, characters.findMany);
-
-// router.get('/hof', characters.getTopPlayers);
-
-/**
- * @PATH: /characters - POST
- * @DESC: Creates a new character
- */
-
-// router.post('/', auth, (req, res) => {
-//   res.send('/characters :POST');
-// });
+router.get('/:name', check.get.one, validator, characters.get.one);
 
 export default router;

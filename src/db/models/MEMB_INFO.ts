@@ -1,4 +1,10 @@
-import { Table, Column, Model, PrimaryKey } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  PrimaryKey,
+  Default
+} from 'sequelize-typescript';
 
 @Table
 export default class MEMB_INFO extends Model<MEMB_INFO> {
@@ -10,20 +16,28 @@ export default class MEMB_INFO extends Model<MEMB_INFO> {
   memb__pwd: string;
 
   @Column
+  mail_addr: string;
+
+  @Column
   memb_name: string;
 
+  @Default('unknown')
   @Column
   sno__numb: string;
 
+  @Default(0)
   @Column
   bloc_code: number;
 
+  @Default(0)
   @Column
   ctl1_code: number;
 
+  @Default(0)
   @Column
   IsVip: number;
 
+  @Default(0)
   @Column
   VipExpirationTime: number;
 

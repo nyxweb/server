@@ -15,7 +15,8 @@ try {
       model.Character,
       model.AccountCharacter,
       model.MEMB_STAT,
-      model.MEMB_INFO
+      model.MEMB_INFO,
+      model.Nyx_Config
     ]
   });
   console.log('Database connected...');

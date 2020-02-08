@@ -27,5 +27,5 @@ export default class AccountCharacter extends Model<AccountCharacter> {
   GameIDC: string;
 
   @HasOne(() => Character, { sourceKey: 'GameIDC', foreignKey: 'Name' })
-  character: Character;
+  character?: Character;
 }

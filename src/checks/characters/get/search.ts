@@ -1,6 +1,6 @@
 import { param, query } from 'express-validator';
 
-const findMany = [
+const search = [
   param('name')
     .isString()
     .withMessage('Invalid Character name')
@@ -18,4 +18,4 @@ const findMany = [
     .withMessage('Only page 1 to 50 are available')
 ];
 
-export default findMany;
+export default search;

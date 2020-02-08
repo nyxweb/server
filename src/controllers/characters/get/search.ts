@@ -1,18 +1,25 @@
+import { Op } from 'sequelize';
+
 // Types
 import { Request, Response } from 'express';
 
 // Tools
-import logger from '../../tools/logger';
+import logger from '../../../tools/logger';
 
 // Models
-import model from '../../db/models';
+import model from '../../../db/models';
 
-const getOne = async (req: Request, res: Response) => {
+const search = async (req: Request, res: Response) => {
   try {
-    const { name: Name } = req.params;
+    const { name } = req.params;
+    const { limit = 10, offset = 1 } = req.query;
 
-    const result = await model.Character.findOne({
-      where: { Name },
+    const result = await model.Character.findAll({
+      limit: Number(limit),
+      offset: Number(offset) - 1,
+      where: {
+        Name: { [Op.like]: `%${name}%` }
+      },
       attributes: {
         exclude: ['Quest', 'Inventory', 'AccountID', 'MapPosX', 'MapPosY']
       },
@@ -38,4 +45,4 @@ const getOne = async (req: Request, res: Response) => {
   }
 };
 
-export default getOne;
+export default search;

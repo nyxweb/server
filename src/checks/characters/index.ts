@@ -1,9 +1,5 @@
-import getOne from './getOne';
-import getMany from './getMany';
-import findMany from './findMany';
+import get from './get';
 
 export default {
-  getOne,
-  getMany,
-  findMany
+  get
 };
