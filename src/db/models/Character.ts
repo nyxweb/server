@@ -2,6 +2,7 @@ import { Table, Column, Model, HasOne, PrimaryKey } from 'sequelize-typescript';
 
 import AccountCharacter from './AccountCharacter';
 import MEMB_STAT from './MEMB_STAT';
+import GuildMember from './GuildMember';
 
 @Table
 export default class Character extends Model<Character> {
@@ -143,4 +144,7 @@ export default class Character extends Model<Character> {
 
   @HasOne(() => AccountCharacter, { sourceKey: 'Name', foreignKey: 'GameIDC' })
   account?: AccountCharacter;
+
+  @HasOne(() => GuildMember, { sourceKey: 'Name', foreignKey: 'Name' })
+  guild_memb?: GuildMember;
 }

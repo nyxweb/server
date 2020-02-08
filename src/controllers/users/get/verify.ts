@@ -14,7 +14,7 @@ const verify = async (req: Request, res: Response) => {
     const token = req.header('nyxAuthToken');
 
     if (!token) {
-      return res.status(403).json({ error: 'Not authorized' });
+      return res.json({ error: 'Not authorized' });
     }
 
     const decode = jwt.verify(token, process.env.JWT_KEY);

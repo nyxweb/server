@@ -30,6 +30,14 @@ const getMany = async (req: Request, res: Response) => {
           attributes: {
             exclude: ['Id']
           }
+        },
+        {
+          model: model.GuildMember,
+          include: [
+            {
+              model: model.Guild
+            }
+          ]
         }
       ]
     });

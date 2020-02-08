@@ -16,7 +16,9 @@ try {
       model.AccountCharacter,
       model.MEMB_STAT,
       model.MEMB_INFO,
-      model.Nyx_Config
+      model.Nyx_Config,
+      model.Guild,
+      model.GuildMember
     ]
   });
   console.log('Database connected...');

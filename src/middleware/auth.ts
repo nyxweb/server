@@ -1,38 +1,40 @@
-// import jwt from 'jsonwebtoken';
-// import { getManager } from 'typeorm';
+import jwt from 'jsonwebtoken';
 
-// // Types
-// import { Request, Response, NextFunction } from 'express';
+// Types
+import { Request, Response, NextFunction } from 'express';
 
-// // Tools
-// import logger from '../tools/logger';
+// Tools
+import logger from '../tools/logger';
 
-// const auth = async (req: Request, res: Response, next: NextFunction) => {
-//   try {
-//     const token = req.header('nyxAuthToken');
+// Models
+import model from '../db/models';
 
-//     if (!token) {
-//       return res.status(403).json({ error: 'Not authorized' });
-//     }
+const auth = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const token = req.header('nyxAuthToken');
 
-//     const decode = jwt.verify(token, process.env.JWT_KEY);
+    if (!token) {
+      return res.status(403).json({ error: 'Not authorized' });
+    }
 
-//     const userCheck = await getManager().count('MEMB_INFO', {
-//       where: {
-//         memb___id: decode.username,
-//         jwt_token: token
-//       }
-//     });
+    const decode = jwt.verify(token, process.env.JWT_KEY);
 
-//     if (!userCheck) {
-//       return res.status(403).json({ error: 'Not authorized' });
-//     }
+    const userCheck = await model.MEMB_INFO.count({
+      where: {
+        memb___id: decode.username,
+        jwt_token: token
+      }
+    });
 
-//     req.username = decode.username;
-//     next();
-//   } catch (error) {
-//     logger.error({ error, res });
-//   }
-// };
+    if (!userCheck) {
+      return res.status(403).json({ error: 'Not authorized' });
+    }
 
-// export default auth;
+    req.username = decode.username;
+    next();
+  } catch (error) {
+    logger.error({ error, res });
+  }
+};
+
+export default auth;
