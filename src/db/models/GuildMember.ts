@@ -1,6 +1,7 @@
 import { Table, Column, Model, PrimaryKey, HasOne } from 'sequelize-typescript';
 
 import Guild from './Guild';
+import Character from './Character';
 
 @Table
 export default class GuildMember extends Model<GuildMember> {
@@ -19,4 +20,7 @@ export default class GuildMember extends Model<GuildMember> {
 
   @HasOne(() => Guild, { sourceKey: 'G_Name', foreignKey: 'G_Name' })
   guild?: Guild;
+
+  @HasOne(() => Character, { sourceKey: 'Name', foreignKey: 'Name' })
+  character?: Character;
 }

@@ -9,12 +9,23 @@ import model from '../../../db/models';
 
 const getMany = async (req: Request, res: Response) => {
   try {
-    const { limit = 10, offset = 1 } = req.query;
+    const { limit = 10, offset = 1, class: Class } = req.query;
+
+    let where = {};
+    if (Class) {
+      where = { Class };
+    }
 
     const result = await model.Character.findAll({
+      where,
       limit: Number(limit),
       offset: Number(offset) - 1,
-      order: [['cLevel', 'DESC']],
+      order: [
+        ['HOFWins', 'DESC'],
+        ['Resets', 'DESC'],
+        ['cLevel', 'DESC'],
+        ['Name', 'ASC']
+      ],
       attributes: {
         exclude: ['Quest', 'Inventory', 'AccountID', 'MapPosX', 'MapPosY']
       },
