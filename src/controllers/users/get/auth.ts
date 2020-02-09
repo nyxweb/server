@@ -26,7 +26,14 @@ const auth = async (req: Request, res: Response) => {
 
     await user.save();
 
-    res.json({ success: 'Login successful', token });
+    res.json({
+      username,
+      reg_time: user.memb_name,
+      reg_ip: user.reg_ip,
+      vip: user.IsVip,
+      vip_exp: user.VipExpirationTime,
+      token
+    });
   } catch (error) {
     logger.error({ error, res });
   }
