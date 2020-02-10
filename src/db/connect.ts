@@ -3,7 +3,7 @@ import { Sequelize } from 'sequelize-typescript';
 // Models
 import model from './models';
 
-let connection;
+let connection: any;
 try {
   connection = new Sequelize(process.env.SEQUELIZE_URL, {
     define: {
