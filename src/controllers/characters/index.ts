@@ -1,6 +1,5 @@
-import getMany from './getMany';
-import getOne from './getOne';
-import findMany from './findMany';
-import getTopPlayers from './getTopPlayers';
+import get from './get';
 
-export default { getMany, getOne, findMany, getTopPlayers };
+export default {
+  get
+};

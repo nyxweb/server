@@ -1,21 +1,29 @@
-import { createConnection } from 'typeorm';
+import { Sequelize } from 'sequelize-typescript';
 
-import Character from './entity/Character';
-import MEMB_STAT from './entity/MEMB_STAT';
-import MEMB_INFO from './entity/MEMB_INFO';
+// Models
+import model from './models';
 
-(async () => {
-  try {
-    await createConnection({
-      type: 'mssql',
-      url: process.env.TYPEORM_URL,
-      entities: [Character, MEMB_STAT, MEMB_INFO],
-      // migrations: ['../migrations/*.ts'],
-      logging: true
-    });
+let connection;
+try {
+  connection = new Sequelize(process.env.SEQUELIZE_URL, {
+    define: {
+      freezeTableName: true,
+      timestamps: false
+    },
+    logging: false,
+    models: [
+      model.Character,
+      model.AccountCharacter,
+      model.MEMB_STAT,
+      model.MEMB_INFO,
+      model.Nyx_Config,
+      model.Guild,
+      model.GuildMember
+    ]
+  });
+  console.log('Database connected...');
+} catch (error) {
+  console.log('Database failed to connect...');
+}
 
-    console.log('Database connected...');
-  } catch (error) {
-    console.log('DB Failed: ', error.message);
-  }
-})();
+export default connection;
