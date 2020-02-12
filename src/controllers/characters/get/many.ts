@@ -9,7 +9,7 @@ import model from '../../../db/models';
 
 const getMany = async (req: Request, res: Response) => {
   try {
-    const { limit = 10, offset = 1, class: Class } = req.query;
+    const { perPage = 20, page = 1, class: Class } = req.query;
 
     let where = {};
     if (Class) {
@@ -18,8 +18,8 @@ const getMany = async (req: Request, res: Response) => {
 
     const result = await model.Character.findAll({
       where,
-      limit: Number(limit),
-      offset: Number(offset) - 1,
+      limit: perPage,
+      offset: (page - 1) * perPage,
       order: [
         ['HOFWins', 'DESC'],
         ['Resets', 'DESC'],

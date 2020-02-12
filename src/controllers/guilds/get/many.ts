@@ -6,49 +6,24 @@ import { Request, Response } from 'express';
 // Tools
 import logger from '../../../tools/logger';
 
-// Models
-import model from '../../../db/models';
-
 const getMany = async (req: Request, res: Response) => {
   try {
-    // const { limit = 5, offset = 1 } = req.query;
+    const { perPage = 5, page = 1 } = req.query;
 
-    // const result = await sequelize.query(
-    //   `SELECT TOP ${limit} G.G_Name, G.G_Mark,
-    //     (SELECT SUM(Resets) FROM Character C
-    //     LEFT JOIN GuildMember GM ON C.Name=GM.Name
-    //     WHERE GM.G_Name=G.G_Name) AS TotalResets,
-    //     (SELECT COUNT(*) FROM Character C
-    //     LEFT JOIN GuildMember GM ON C.Name=GM.Name
-    //     WHERE GM.G_Name=G.G_Name) AS TotalMembers
-    //   FROM Guild G
-    //   ORDER BY TotalResets DESC`,
-    //   { type: sequelize.QueryTypes.SELECT }
-    // );
-
-    const result = await model.Guild.findAll({
-      limit: 5,
-      offset: 0,
-      include: [
-        {
-          model: model.GuildMember,
-          include: [
-            {
-              model: model.Character,
-              attributes: ['Resets']
-            }
-          ]
-        }
-      ]
-      // order: [
-      //   [
-      //     { model: model.GuildMember, as: 'guild_memb' },
-      //     { model: model.Character, as: 'character' },
-      //     col('Resets'),
-      //     'DESC'
-      //   ]
-      // ]
-    });
+    const result = await sequelize.query(
+      `SELECT G_Name, G_Mark,
+        (SELECT SUM(Resets) FROM Character
+        LEFT JOIN GuildMember ON Character.Name = GuildMember.Name
+        WHERE GuildMember.G_Name = Guild.G_Name) AS TotalResets,
+        (SELECT COUNT(*) FROM Character
+        LEFT JOIN GuildMember ON Character.Name = GuildMember.Name
+        WHERE GuildMember.G_Name = Guild.G_Name) AS TotalMembers
+      FROM Guild
+      ORDER BY TotalResets DESC
+      OFFSET ${(page - 1) * perPage} ROWS
+      FETCH NEXT ${perPage} ROWS ONLY`,
+      { type: sequelize.QueryTypes.SELECT }
+    );
 
     res.json(result);
   } catch (error) {

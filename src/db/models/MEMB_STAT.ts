@@ -2,12 +2,9 @@ import {
   Table,
   Column,
   Model,
-  HasMany,
   PrimaryKey,
   Default
 } from 'sequelize-typescript';
-
-import Character from './Character';
 
 @Table
 export default class MEMB_STAT extends Model<MEMB_STAT> {
@@ -28,7 +25,4 @@ export default class MEMB_STAT extends Model<MEMB_STAT> {
   @Default(0)
   @Column
   TotalTime: number;
-
-  @HasMany(() => Character, { sourceKey: 'memb___id', foreignKey: 'AccountID' })
-  characters?: Character[];
 }

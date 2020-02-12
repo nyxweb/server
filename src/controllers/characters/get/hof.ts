@@ -12,9 +12,7 @@ import model from '../../../db/models';
 const getHof = async (req: Request, res: Response) => {
   try {
     const sm = await model.Character.findOne({
-      where: {
-        Class: 1
-      },
+      where: { [Op.or]: [{ Class: 0 }, { Class: 1 }] },
       attributes: ['Name', 'Class', 'HOFWins'],
       order: [
         ['HOFWins', 'DESC'],
@@ -38,9 +36,7 @@ const getHof = async (req: Request, res: Response) => {
     });
 
     const bk = await model.Character.findOne({
-      where: {
-        Class: 17
-      },
+      where: { [Op.or]: [{ Class: 16 }, { Class: 17 }] },
       attributes: ['Name', 'Class', 'HOFWins'],
       order: [
         ['HOFWins', 'DESC'],
@@ -64,9 +60,7 @@ const getHof = async (req: Request, res: Response) => {
     });
 
     const elf = await model.Character.findOne({
-      where: {
-        Class: 33
-      },
+      where: { [Op.or]: [{ Class: 32 }, { Class: 33 }] },
       attributes: ['Name', 'Class', 'HOFWins'],
       order: [
         ['HOFWins', 'DESC'],
@@ -141,7 +135,7 @@ const getHof = async (req: Request, res: Response) => {
       ]
     });
 
-    res.json([sm, bk, elf, mg, dl]);
+    res.json(!sm && !bk && !elf && !mg && !dl ? false : [sm, bk, elf, mg, dl]);
   } catch (error) {
     logger.error({ error, res });
   }

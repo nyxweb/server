@@ -1,12 +1,4 @@
-import {
-  Table,
-  Column,
-  Model,
-  HasMany,
-  PrimaryKey
-} from 'sequelize-typescript';
-
-import GuildMember from './GuildMember';
+import { Table, Column, Model, PrimaryKey } from 'sequelize-typescript';
 
 @Table
 export default class Guild extends Model<Guild> {
@@ -37,7 +29,4 @@ export default class Guild extends Model<Guild> {
 
   @Column
   G_Union: number;
-
-  @HasMany(() => GuildMember, { sourceKey: 'G_Name', foreignKey: 'G_Name' })
-  guild_memb?: GuildMember[];
 }
