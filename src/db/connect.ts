@@ -1,7 +1,7 @@
-import { Sequelize } from 'sequelize-typescript';
+import { Sequelize } from "sequelize-typescript";
 
 // Models
-import model from './models';
+import model from "./models";
 
 let connection: any;
 try {
@@ -21,9 +21,10 @@ try {
       model.GuildMember
     ]
   });
-  console.log('Database connected...');
+
+  console.log("Database connected...");
 } catch (error) {
-  console.log('Database failed to connect...');
+  console.log("Database failed to connect...");
 }
 
 export default connection;
