@@ -2,8 +2,12 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 import './db/connect';
-
 import router from './routes/router';
+
+const port =
+  process.env.NODE_ENV === 'production'
+    ? process.env.PORT
+    : process.env.PORT_DEV;
 
 const app: Application = express();
 
@@ -15,6 +19,6 @@ app.use([
   router
 ]);
 
-app.listen(process.env.PORT, () => {
-  console.log(`\n* SERVER STARTED ON PORT [${process.env.PORT}] *\n`);
+app.listen(port, () => {
+  console.log(`\n* SERVER STARTED ON PORT [${port}] *\n`);
 });

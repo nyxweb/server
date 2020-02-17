@@ -2,6 +2,7 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const NodemonPlugin = require('nodemon-webpack-plugin');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
+require('dotenv').config();
 
 module.exports = {
   name: 'deployment',

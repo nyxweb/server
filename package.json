@@ -5,11 +5,10 @@
   "main": "dist/bundle.js",
   "license": "MIT",
   "scripts": {
-    "lint": "tslint -p tsconfig.json",
-    "prestart": "env NODE_ENV=production webpack",
+    "prestart": "webpack",
     "start": "node .",
-    "ppredev": "yarn lint",
-    "dev": "env NODE_ENV=development webpack --watch"
+    "predev": "tslint -p tsconfig.json",
+    "dev": "webpack --watch"
   },
   "repository": {
     "type": "git",
