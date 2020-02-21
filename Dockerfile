@@ -2,7 +2,7 @@ FROM node:12-slim
 
 WORKDIR /app
 
-COPY package.json ./
+COPY package.json .
 
 RUN yarn
 

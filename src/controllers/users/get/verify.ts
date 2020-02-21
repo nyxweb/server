@@ -23,20 +23,15 @@ const verify = async (req: Request, res: Response) => {
       where: {
         memb___id: decode.username,
         jwt_token: token
-      }
+      },
+      include: [{ model: model._nyxResources }]
     });
 
     if (!user) {
       return res.status(403).json({ error: 'Not authorized' });
     }
 
-    res.json({
-      username: user.memb___id,
-      reg_time: user.memb_name,
-      reg_ip: user.reg_ip,
-      vip: user.IsVip,
-      vip_exp: user.VipExpirationTime
-    });
+    res.json(user);
   } catch (error) {
     logger.error({ error, res });
   }

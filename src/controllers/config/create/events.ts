@@ -15,7 +15,7 @@ const events = async (req: Request, res: Response) => {
       return res.json({ error: 'Invalid event data provided' });
     }
 
-    const checkName = await model.Nyx_Config.findOne({
+    const checkName = await model._nyxConfig.findOne({
       where: { name }
     });
 
@@ -23,7 +23,7 @@ const events = async (req: Request, res: Response) => {
       return res.json({ error: 'This event name is already taken' });
     }
 
-    await model.Nyx_Config.create({
+    await model._nyxConfig.create({
       name,
       value
     });

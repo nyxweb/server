@@ -9,7 +9,7 @@ import model from '../../../db/models';
 
 const events = async (req: Request, res: Response) => {
   try {
-    const result = await model.Nyx_Config.findOne({
+    const result = await model._nyxConfig.findOne({
       where: {
         name: 'events'
       }

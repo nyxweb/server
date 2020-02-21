@@ -13,7 +13,8 @@ const auth = async (req: Request, res: Response) => {
     const { username, password } = req.body;
 
     const user = await model.MEMB_INFO.findOne({
-      where: { memb___id: username, memb__pwd: password }
+      where: { memb___id: username, memb__pwd: password },
+      include: [{ model: model._nyxResources }]
     });
 
     if (!user) {
@@ -26,14 +27,7 @@ const auth = async (req: Request, res: Response) => {
 
     await user.save();
 
-    res.json({
-      username,
-      reg_time: user.memb_name,
-      reg_ip: user.reg_ip,
-      vip: user.IsVip,
-      vip_exp: user.VipExpirationTime,
-      token
-    });
+    res.json(user);
   } catch (error) {
     logger.error({ error, res });
   }

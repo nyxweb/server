@@ -1,12 +1,11 @@
 FROM mcr.microsoft.com/mssql/server:2019-latest
 
 ENV ACCEPT_EULA=Y
-ENV SA_PASSWORD=thepassword.is1
+ENV SA_PASSWORD=Das3dds.fSFD33f
 ENV MSSQL_PID=Express
-ENV MSSQL_TCP_PORT=1433
 
 RUN mkdir /var/opt/mssql/backup
 
 COPY ./src/db/backup/MuOnline.bak /var/opt/mssql/backup
 
-RUN (/opt/mssql/bin/sqlservr --accept-eula & ) | grep -q "Service Broker manager has started" &&  /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U sa -P thepassword.is1  -Q "RESTORE DATABASE MuOnline FROM DISK='/var/opt/mssql/backup/MuOnline.bak' WITH MOVE 'MuOnline_Data' TO '/var/opt/mssql/data/MuOnline.mdf', MOVE 'MuOnline_Log' TO '/var/opt/mssql/data/MuOnline_Log.ldf';"
+RUN (/opt/mssql/bin/sqlservr --accept-eula & ) | grep -q "Service Broker manager has started" && /opt/mssql-tools/bin/sqlcmd -U "sa" -S "192.168.99.100" -P "Das3dds.fSFD33f" -Q "RESTORE DATABASE MuOnline FROM DISK='/var/opt/mssql/backup/MuOnline.bak' WITH MOVE 'MuOnline_Data' TO '/var/opt/mssql/data/MuOnline.mdf', MOVE 'MuOnline_Log' TO '/var/opt/mssql/data/MuOnline_Log.ldf'"

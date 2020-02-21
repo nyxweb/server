@@ -1,14 +1,6 @@
-import {
-  Table,
-  Column,
-  Model,
-  PrimaryKey,
-  HasOne,
-  BelongsTo
-} from 'sequelize-typescript';
+import { Table, Column, Model, PrimaryKey, HasOne } from 'sequelize-typescript';
 
 import Guild from './Guild';
-import Character from './Character';
 
 @Table
 export default class GuildMember extends Model<GuildMember> {

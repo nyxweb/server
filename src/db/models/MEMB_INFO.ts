@@ -3,8 +3,12 @@ import {
   Column,
   Model,
   PrimaryKey,
-  Default
+  Default,
+  HasOne
 } from 'sequelize-typescript';
+
+// Models
+import _nyxResources from './_nyxResources';
 
 @Table
 export default class MEMB_INFO extends Model<MEMB_INFO> {
@@ -16,14 +20,14 @@ export default class MEMB_INFO extends Model<MEMB_INFO> {
   memb__pwd: string;
 
   @Column
-  mail_addr: string;
-
-  @Column
   memb_name: string;
 
   @Default('unknown')
   @Column
   sno__numb: string;
+
+  @Column
+  mail_addr: string;
 
   @Default(0)
   @Column
@@ -46,4 +50,13 @@ export default class MEMB_INFO extends Model<MEMB_INFO> {
 
   @Column
   jwt_token: string;
+
+  @Column
+  admin_lvl: number;
+
+  @HasOne(() => _nyxResources, {
+    sourceKey: 'memb___id',
+    foreignKey: 'account'
+  })
+  resources: _nyxResources;
 }

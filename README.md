@@ -30,15 +30,15 @@ ADD
 ```
 ALTER TABLE [dbo].[MEMB_INFO]
 ADD
-  [jwt_token] [varchar](100) NULL,
+  [jwt_token] [varchar](255) NULL,
   [admin_lvl] [int] NOT NULL DEFAULT(0),
   [reg_ip] [varchar](30) NULL;
 ```
 
-### `Nyx_Config`
+### `_nyxConfig`
 
 ```
-CREATE TABLE [dbo].[Nyx_Config](
+CREATE TABLE [dbo].[_nyxConfig](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[name] [varchar](50) NULL,
 	[value] [text] NULL
