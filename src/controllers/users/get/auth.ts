@@ -7,6 +7,7 @@ import { Request, Response } from 'express';
 import logger from '../../../tools/logger';
 import { json } from '../../../tools/json';
 
+// Models
 import model from '../../../db/models';
 
 // Config
@@ -34,7 +35,11 @@ const auth = async (req: Request, res: Response) => {
     const userJSON: any = user.toJSON();
 
     // Resources
-    const resources = json.parse(userJSON.resources.resources);
+    const resources =
+      userJSON.resources && userJSON.resources.resources
+        ? json.parse(userJSON.resources.resources)
+        : false;
+
     const newResources: any[] = [];
 
     config.user.resources.forEach((name: string) => {
@@ -47,6 +52,16 @@ const auth = async (req: Request, res: Response) => {
         newResources.push({ name, value: 0 });
       }
     });
+
+    if (!userJSON.resources || !userJSON.resources.resources) {
+      const nyxRes = new model._nyxResources();
+      nyxRes.account = user.memb___id;
+      nyxRes.resources = JSON.stringify(newResources);
+
+      await nyxRes.save();
+
+      userJSON.resources = nyxRes.toJSON();
+    }
 
     userJSON.resources.list = JSON.stringify(newResources);
     delete userJSON.resources.resources;

@@ -1,0 +1,6 @@
+{
+  "appID": "nyx-api",
+  "typescript": true,
+  "existing": true,
+  "entrypoint": "server.ts"
+}

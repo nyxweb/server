@@ -10,6 +10,7 @@ import model from '../../../db/models';
 const latest = async (req: Request, res: Response) => {
   try {
     const items = await model._nyxMarket.findAll({
+      limit: 3,
       order: [['timestamp', 'DESC']]
     });
 
