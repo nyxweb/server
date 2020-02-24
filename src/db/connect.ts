@@ -14,6 +14,7 @@ try {
     models: [
       model._nyxConfig,
       model._nyxResources,
+      model._nyxMarket,
       model.Character,
       model.AccountCharacter,
       model.MEMB_STAT,

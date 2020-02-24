@@ -27,6 +27,8 @@ const create = async (req: Request, res: Response) => {
       return res.json({ error: 'This E-Mail address is already in use' });
     }
 
+    await model._nyxResources.create({ account: username });
+
     await model.MEMB_INFO.create({
       memb___id: username,
       memb__pwd: password,

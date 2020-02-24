@@ -8,6 +8,7 @@ import GuildMember from './GuildMember';
 // Nyx Tables
 import _nyxConfig from './_nyxConfig';
 import _nyxResources from './_nyxResources';
+import _nyxMarket from './_nyxMarket';
 
 export default {
   Character,
@@ -17,5 +18,6 @@ export default {
   Guild,
   GuildMember,
   _nyxConfig,
-  _nyxResources
+  _nyxResources,
+  _nyxMarket
 };

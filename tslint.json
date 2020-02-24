@@ -14,7 +14,8 @@
     "trailing-comma": false,
     "arrow-parens": false,
     "interface-name": false,
-    "member-access": false
+    "member-access": false,
+    "no-bitwise": false
   },
   "rulesDirectory": []
 }
