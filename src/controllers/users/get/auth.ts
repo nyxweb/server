@@ -43,10 +43,14 @@ const auth = async (req: Request, res: Response) => {
     const newResources: any[] = [];
 
     config.user.resources.forEach((name: string) => {
-      if (resources && resources.includes(name)) {
+      const resItem = resources
+        ? resources.find((r: any) => r.name === name)
+        : false;
+
+      if (resItem) {
         newResources.push({
           name,
-          value: resources[name]
+          value: resItem.value
         });
       } else {
         newResources.push({ name, value: 0 });
