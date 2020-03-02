@@ -14,20 +14,20 @@ const router = Router();
  * @DESC: Authenticates a user
  */
 
-router.post('/auth', check.get.auth, validator, users.get.auth);
+router.post('/auth', check.account.auth, validator, users.account.auth);
 
 /**
  * @PATH: /users/verify - POST
  * @DESC: Verifies a user
  */
 
-router.post('/verify', users.get.verify);
+router.post('/verify', users.account.verify);
 
 /**
  * @PATH: /users - POST
  * @DESC: Creates a new user account
  */
 
-router.post('/', check.create.account, validator, users.create.account);
+router.post('/', check.account.create, validator, users.account.create);
 
 export default router;

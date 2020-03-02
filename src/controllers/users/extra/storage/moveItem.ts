@@ -32,7 +32,7 @@ const moveItem = async (req: Request, res: Response) => {
       oldItem +
       remove.slice((newSlot + 1) * 32);
 
-    warehouse.Items = Buffer.from(add, 'hex');
+    warehouse.Items = add;
 
     await warehouse.save();
 

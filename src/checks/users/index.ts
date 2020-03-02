@@ -1,7 +1,5 @@
-import create from './create';
-import get from './get';
+import account from './account';
 
 export default {
-  create,
-  get
+  account
 };

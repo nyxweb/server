@@ -1,6 +1,6 @@
 import { check } from 'express-validator';
 
-const createCheck = [
+const createAccount = [
   check('username')
     .isString()
     .withMessage('Username is required')
@@ -20,4 +20,4 @@ const createCheck = [
     .isEmail()
 ];
 
-export default createCheck;
+export default createAccount;

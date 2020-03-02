@@ -7,7 +7,7 @@ import logger from '../../../tools/logger';
 // Models
 import model from '../../../db/models';
 
-const create = async (req: Request, res: Response) => {
+const createAccount = async (req: Request, res: Response) => {
   try {
     const { username, password, email } = req.body;
 
@@ -43,4 +43,4 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
-export default create;
+export default createAccount;
