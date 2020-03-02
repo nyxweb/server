@@ -10,6 +10,7 @@ import {
 // Models
 import _nyxResources from './_nyxResources';
 import MEMB_STAT from './MEMB_STAT';
+import warehouse from './warehouse';
 
 @Table
 export default class MEMB_INFO extends Model<MEMB_INFO> {
@@ -66,4 +67,10 @@ export default class MEMB_INFO extends Model<MEMB_INFO> {
     foreignKey: 'memb___id'
   })
   status: MEMB_STAT;
+
+  @HasOne(() => warehouse, {
+    sourceKey: 'memb___id',
+    foreignKey: 'AccountID'
+  })
+  warehouse: warehouse;
 }

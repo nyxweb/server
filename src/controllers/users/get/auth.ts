@@ -19,7 +19,11 @@ const auth = async (req: Request, res: Response) => {
 
     const user = await model.MEMB_INFO.findOne({
       where: { memb___id: username, memb__pwd: password },
-      include: [{ model: model._nyxResources }, { model: model.MEMB_STAT }]
+      include: [
+        { model: model._nyxResources },
+        { model: model.MEMB_STAT },
+        { model: model.warehouse }
+      ]
     });
 
     if (!user) {
@@ -69,6 +73,13 @@ const auth = async (req: Request, res: Response) => {
 
     userJSON.resources.list = JSON.stringify(newResources);
     delete userJSON.resources.resources;
+
+    // Warehouse
+    userJSON.warehouse = {
+      items: userJSON.warehouse.Items.toString('hex'),
+      money: userJSON.warehouse.Money,
+      lock: userJSON.warehouse.pw !== 0
+    };
 
     res.json(userJSON);
   } catch (error) {

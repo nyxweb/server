@@ -20,7 +20,8 @@ try {
       model.MEMB_STAT,
       model.MEMB_INFO,
       model.Guild,
-      model.GuildMember
+      model.GuildMember,
+      model.warehouse
     ]
   });
 

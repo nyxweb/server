@@ -28,7 +28,22 @@ const verify = async (req: Request, res: Response) => {
         memb___id: decode.username,
         jwt_token: token
       },
-      include: [{ model: model._nyxResources }, { model: model.MEMB_STAT }]
+      include: [
+        { model: model._nyxResources },
+        { model: model.MEMB_STAT },
+        { model: model.warehouse }
+      ],
+      attributes: [
+        'memb___id',
+        'memb_name',
+        'sno__numb',
+        'bloc_code',
+        'ctl1_code',
+        'IsVip',
+        'VipExpirationTime',
+        'reg_ip',
+        'admin_lvl'
+      ]
     });
 
     if (!user) {
@@ -72,6 +87,13 @@ const verify = async (req: Request, res: Response) => {
 
     userJSON.resources.list = JSON.stringify(newResources);
     delete userJSON.resources.resources;
+
+    // Warehouse
+    userJSON.warehouse = {
+      items: userJSON.warehouse.Items.toString('hex'),
+      money: userJSON.warehouse.Money,
+      lock: userJSON.warehouse.pw !== 0
+    };
 
     res.json(userJSON);
   } catch (error) {

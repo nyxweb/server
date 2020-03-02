@@ -4,6 +4,7 @@ import MEMB_STAT from './MEMB_STAT';
 import AccountCharacter from './AccountCharacter';
 import Guild from './Guild';
 import GuildMember from './GuildMember';
+import warehouse from './warehouse';
 
 // Nyx Tables
 import _nyxConfig from './_nyxConfig';
@@ -17,6 +18,7 @@ export default {
   AccountCharacter,
   Guild,
   GuildMember,
+  warehouse,
   _nyxConfig,
   _nyxResources,
   _nyxMarket
