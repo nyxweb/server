@@ -1,11 +1,12 @@
 import { Router } from 'express';
 
 // Main Routes
-import { users, characters, guilds, config, others, notFound } from '.';
+import { user, characters, guilds, config, others, notFound } from '.';
 
 const router = Router();
 
-router.use('/users', users);
+router.use('/user', user);
+
 router.use('/characters', characters);
 router.use('/guilds', guilds);
 router.use('/config', config);

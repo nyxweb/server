@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
 // Validation
-import validator from '../middleware/validator';
-import check from '../checks/users';
+import validator from '../../middleware/validator';
+import check from '../../checks/users';
 
 // Controllers
-import user from '../controllers/user';
+import user from '../../controllers/user';
 
 const router = Router();
 
