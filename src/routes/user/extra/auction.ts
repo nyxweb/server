@@ -1,14 +1,14 @@
 import { Router } from 'express';
 
 // Controllers
-import market from '../../../controllers/user/extra/market';
+import auction from '../../../controllers/user/extra/auction';
 
 const router = Router();
 
 /**
- * @PATH: /user/extra/market
+ * @PATH: /user/extra/auction
  */
 
-router.get('/', market);
+router.get('/auction', auction.bid);
 
 export default router;

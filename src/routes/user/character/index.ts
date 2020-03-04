@@ -1,33 +1,35 @@
 import { Router } from 'express';
 
-// Validation
-import validator from '../../middleware/validator';
-import check from '../../checks/users';
-
-// Controllers
-import user from '../../controllers/user';
+// Routes
+import addstats from './addstats';
+import cClass from './class';
+import name from './name';
+import reset from './reset';
 
 const router = Router();
 
 /**
- * @PATH: /user/auth - POST
- * @DESC: Authenticates a user
+ * @PATH: /user/character/addstats
  */
 
-router.post('/auth', check.account.auth, validator, user.account.auth);
+router.use('/addstats', addstats);
 
 /**
- * @PATH: /user/verify - POST
- * @DESC: Verifies a user
+ * @PATH: /user/character/class
  */
 
-router.post('/verify', user.account.verify);
+router.use('/class', cClass);
 
 /**
- * @PATH: /user - POST
- * @DESC: Creates a new user account
+ * @PATH: /user/character/name
  */
 
-router.post('/', check.account.create, validator, user.account.create);
+router.use('/name', name);
+
+/**
+ * @PATH: /user/character/reset
+ */
+
+router.use('/reset', reset);
 
 export default router;

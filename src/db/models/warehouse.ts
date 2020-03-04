@@ -20,7 +20,7 @@ export default class warehouse extends Model<warehouse> {
 
   @Default(defaultItems)
   @Column
-  Items: string;
+  Items: Buffer;
 
   @Default(0)
   @Column

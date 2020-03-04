@@ -19,20 +19,24 @@ const moveItem = async (req: Request, res: Response) => {
       return res.status(404).json({ error: 'Warehouse doesnt exist' });
     }
 
+    const items = warehouse.Items.toString('hex');
+
     // Moving the item
-    const oldItem = warehouse.Items.substr(itemSlot * 32, 32);
+    const oldItem = items.substr(itemSlot * 32, 32);
 
     const remove =
-      warehouse.Items.slice(0, itemSlot * 32) +
+      items.slice(0, itemSlot * 32) +
       'f'.repeat(32) +
-      warehouse.Items.slice((itemSlot + 1) * 32);
+      items.slice((itemSlot + 1) * 32);
 
     const add =
       remove.slice(0, newSlot * 32) +
       oldItem +
       remove.slice((newSlot + 1) * 32);
 
-    warehouse.Items = add;
+    warehouse.Items = Buffer.from(add, 'hex');
+
+    console.log(warehouse.Items.length);
 
     await warehouse.save();
 

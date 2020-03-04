@@ -1,14 +1,16 @@
 import { Router } from 'express';
 
 // Controllers
-import market from '../../../controllers/user/extra/market';
+import storage from '../../../controllers/user/extra/storage';
+import auth from '../../../middleware/auth';
 
 const router = Router();
 
 /**
- * @PATH: /user/extra/market
+ * @PATH    /user/extra/storage/moveitem
+ * @DESC    PATCH - moves an item
  */
 
-router.get('/', market);
+router.patch('/moveitem', auth, storage.moveItem);
 
 export default router;

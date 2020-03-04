@@ -7,9 +7,37 @@ import check from '../../../checks/users';
 // Controllers
 import account from '../../../controllers/user/account';
 
+// Routes
+import logs from './logs';
+import online from './online';
+import password from './password';
+import vip from './vip';
+
 const router = Router();
 
-router.get('/', (req, res) => res.end('account'));
+/**
+ * @PATH /user/account/logs
+ */
+
+router.use('/logs', logs);
+
+/**
+ * @PATH /user/account/online
+ */
+
+router.use('/online', online);
+
+/**
+ * @PATH /user/account/password
+ */
+
+router.use('/password', password);
+
+/**
+ * @PATH /user/account/vip
+ */
+
+router.use('/vip', vip);
 
 /**
  * @PATH: /user/auth - POST

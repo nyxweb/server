@@ -8,9 +8,7 @@
     "prestart": "webpack",
     "start": "node .",
     "predev": "tslint -p tsconfig.json",
-    "dev": "webpack --watch",
-    "viq:start": "node src/server.js",
-    "viq:build": "tsc --outDir build"
+    "dev": "webpack --watch"
   },
   "repository": {
     "type": "git",
