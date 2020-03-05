@@ -18,7 +18,7 @@ router.get('/events', config.get.events);
 
 /**
  * @PATH: /config/events - POST
- * @DESC: Create a new event
+ * @DESC: Creates a new event
  */
 
 router.post('/events', check.create.events, validator, config.create.events);
