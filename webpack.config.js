@@ -1,12 +1,23 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const nodemonPlugin = require('nodemon-webpack-plugin');
+const NodemonPlugin = require('nodemon-webpack-plugin');
+const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
+require('dotenv').config();
 
 module.exports = {
   name: 'deployment',
-  target: 'node',
-  entry: './src/app.ts',
   mode: process.env.NODE_ENV,
+  entry: './src/server.ts',
+  target: 'node',
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: [/node_modules/]
+      }
+    ]
+  },
   resolve: {
     extensions: ['.ts', '.js']
   },
@@ -14,18 +25,28 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        use: 'ts-loader',
-        exclude: [/node_modules/, /client/]
-      }
-    ]
-  },
   optimization: {
+    minimize: false,
     usedExports: true
   },
-  plugins: [new nodemonPlugin()],
+  plugins: [
+    new NodemonPlugin(),
+    new FilterWarningsPlugin({
+      exclude: [
+        /mongodb/,
+        /mysql/,
+        /mysql2/,
+        /oracledb/,
+        /pg/,
+        /pg-native/,
+        /pg-query-stream/,
+        /react-native-sqlite-storage/,
+        /redis/,
+        /sqlite3/,
+        /sql.js/,
+        /typeorm-aurora-data-api-driver/
+      ]
+    })
+  ],
   externals: [nodeExternals()]
 };

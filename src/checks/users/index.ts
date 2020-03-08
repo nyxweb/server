@@ -1,7 +1,7 @@
-import create from './create';
-import auth from './auth';
+import account from './account';
+import extra from './extra';
 
 export default {
-  create,
-  auth
+  account,
+  extra
 };

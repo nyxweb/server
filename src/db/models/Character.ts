@@ -1,145 +1,150 @@
-import {
-  Table,
-  Column,
-  Model,
-  ForeignKey,
-  BelongsTo
-} from 'sequelize-typescript';
+import { Table, Column, Model, HasOne, PrimaryKey } from 'sequelize-typescript';
 
-import { MEMB_STAT } from '.';
+import AccountCharacter from './AccountCharacter';
+import MEMB_STAT from './MEMB_STAT';
+import GuildMember from './GuildMember';
 
 @Table
 export default class Character extends Model<Character> {
-  @ForeignKey(() => MEMB_STAT)
+  @PrimaryKey
   @Column
-  public AccountID: string;
+  AccountID: string;
 
   @Column
-  public Name: string;
+  Name: string;
 
   @Column
-  public cLevel: number;
+  cLevel: string;
+
+  // @Column
+  // LevelUpPoint: number;
 
   @Column
-  public LevelUpPoint: number;
+  Class: number;
 
   @Column
-  public Class: number;
+  Experience: number;
+
+  // @Column
+  // Strength: number;
+
+  // @Column
+  // Dexterity: number;
+
+  // @Column
+  // Vitality: number;
+
+  // @Column
+  // Energy: number;
+
+  // @Column
+  // Leadership: number;
 
   @Column
-  public Experience: number;
+  Inventory: BinaryType;
+
+  // @Column
+  // MagicList: BinaryType;
 
   @Column
-  public Strength: number;
+  Money: number;
+
+  // @Column
+  // Life: number;
+
+  // @Column
+  // MaxLife: number;
+
+  // @Column
+  // Mana: number;
+
+  // @Column
+  // MaxMana: number;
 
   @Column
-  public Dexterity: number;
+  MapNumber: number;
 
   @Column
-  public Vitality: number;
+  MapPosX: number;
 
   @Column
-  public Energy: number;
+  MapPosY: number;
+
+  // @Column
+  // MapDir: number;
 
   @Column
-  public Leadership: number;
+  PkCount: number;
 
   @Column
-  public Inventory: BinaryType;
+  PkLevel: number;
 
   @Column
-  public MagicList: BinaryType;
+  PkTime: number;
 
   @Column
-  public Money: number;
+  CtlCode: number;
 
   @Column
-  public Life: number;
+  Quest: BinaryType;
 
   @Column
-  public MaxLife: number;
+  Resets: number;
 
   @Column
-  public Mana: number;
+  GrandResets: number;
 
   @Column
-  public MaxMana: number;
+  BanPost: number;
 
   @Column
-  public MapNumber: number;
+  IsMarried: number;
 
   @Column
-  public MapPosX: number;
+  MarryName: string;
 
   @Column
-  public MapPosY: number;
+  QuestNumber: number;
 
   @Column
-  public MapDir: number;
+  QuestMonsters: number;
 
   @Column
-  public PkCount: number;
+  QuestInCurse: number;
 
   @Column
-  public PkLevel: number;
+  QuestInProgress: number;
 
   @Column
-  public PkTime: number;
+  IsVip: number;
 
   @Column
-  public CtlCode: number;
+  VipExpirationTime: number;
 
   @Column
-  public Quest: BinaryType;
+  SkyEventWins: number;
 
   @Column
-  public Resets: number;
+  BanPostTime: string;
 
   @Column
-  public GrandResets: number;
+  BanCharTime: string;
 
   @Column
-  public BanPost: number;
+  BanChatTime: string;
 
   @Column
-  public IsMarried: number;
+  TotalTime: number;
 
   @Column
-  public MarryName: string;
+  HOFWins: number;
 
-  @Column
-  public QuestNumber: number;
+  @HasOne(() => MEMB_STAT, { sourceKey: 'AccountID', foreignKey: 'memb___id' })
+  status: MEMB_STAT;
 
-  @Column
-  public QuestMonsters: number;
+  @HasOne(() => AccountCharacter, { sourceKey: 'AccountID', foreignKey: 'Id' })
+  account: AccountCharacter;
 
-  @Column
-  public QuestInCurse: number;
-
-  @Column
-  public QuestInProgress: number;
-
-  @Column
-  public IsVip: number;
-
-  @Column
-  public VipExpirationTime: number;
-
-  @Column
-  public SkyEventWins: number;
-
-  @Column
-  public BanPostTime: string;
-
-  @Column
-  public BanCharTime: string;
-
-  @Column
-  public BanChatTime: string;
-
-  @Column
-  public TotalTime: number;
-
-  @BelongsTo(() => MEMB_STAT)
-  public status: MEMB_STAT;
+  @HasOne(() => GuildMember, { sourceKey: 'Name', foreignKey: 'Name' })
+  guild_memb: GuildMember;
 }

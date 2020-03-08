@@ -1,25 +1,28 @@
-import { Table, Column, Model, HasMany } from 'sequelize-typescript';
-
-// Models
-import { Character } from '.';
+import {
+  Table,
+  Column,
+  Model,
+  PrimaryKey,
+  Default
+} from 'sequelize-typescript';
 
 @Table
 export default class MEMB_STAT extends Model<MEMB_STAT> {
-  @Column({ primaryKey: true })
-  public memb___id: string;
+  @PrimaryKey
+  @Column
+  memb___id: string;
+
+  @Default(0)
+  @Column
+  ConnectStat: number;
 
   @Column
-  public ConnectStat: number;
+  ConnectTM: string;
 
   @Column
-  public ConnectTM: string;
+  DisConnectTM: string;
 
+  @Default(0)
   @Column
-  public DisConnectTM: string;
-
-  @Column
-  public TotalTime: number;
-
-  @HasMany(() => Character)
-  public characters: Character[];
+  TotalTime: number;
 }

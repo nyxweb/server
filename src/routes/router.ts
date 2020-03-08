@@ -1,13 +1,14 @@
 import { Router } from 'express';
 
-// Main Routes
-import { admin, users, characters, notFound } from '.';
+import { user, characters, guilds, config, others, notFound } from '.';
 
 const router = Router();
 
-router.use('/admin', admin);
-router.use('/users', users);
+router.use('/user', user);
 router.use('/characters', characters);
+router.use('/guilds', guilds);
+router.use('/config', config);
+router.use('/others', others);
 router.use(notFound);
 
 export default router;

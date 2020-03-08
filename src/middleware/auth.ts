@@ -7,19 +7,19 @@ import { Request, Response, NextFunction } from 'express';
 import logger from '../tools/logger';
 
 // Models
-import { MEMB_INFO } from '../db/models';
+import model from '../db/models';
 
 const auth = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token = req.header('auth-token');
+    const token = req.header('nyxAuthToken');
 
     if (!token) {
-      return res.status(401).json({ error: 'Not authorized' });
+      return res.status(403).json({ error: 'Not authorized' });
     }
 
     const decode = jwt.verify(token, process.env.JWT_KEY);
 
-    const userCheck = await MEMB_INFO.count({
+    const userCheck = await model.MEMB_INFO.findOne({
       where: {
         memb___id: decode.username,
         jwt_token: token
@@ -27,7 +27,11 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
     });
 
     if (!userCheck) {
-      return res.status(401).json({ error: 'Not authorized' });
+      return res.status(403).json({ error: 'Not authorized' });
+    }
+
+    if (Number(userCheck.bloc_code) !== 0) {
+      return res.status(403).json({ error: 'This account has been blocked.' });
     }
 
     req.username = decode.username;

@@ -35,7 +35,7 @@ interface Params {
 
 const error = ({ error: { message }, res }: Params) => {
   logger.error(message);
-  res.json({ error: 'Server Error' });
+  res.status(500).json({ error: 'Server Error' });
 };
 
 export default { error };

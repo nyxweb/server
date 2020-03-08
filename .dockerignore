@@ -1,0 +1,7 @@
+node_modules/
+dist/
+docker/
+logs/
+tests/
+.gitignore
+yarn.lock
