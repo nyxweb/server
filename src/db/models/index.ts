@@ -10,6 +10,7 @@ import warehouse from './warehouse';
 import _nyxConfig from './_nyxConfig';
 import _nyxResources from './_nyxResources';
 import _nyxMarket from './_nyxMarket';
+import _nyxAccountLogs from './_nyxAccountLogs';
 
 export default {
   Character,
@@ -21,5 +22,6 @@ export default {
   warehouse,
   _nyxConfig,
   _nyxResources,
-  _nyxMarket
+  _nyxMarket,
+  _nyxAccountLogs
 };

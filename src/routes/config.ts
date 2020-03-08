@@ -10,17 +10,17 @@ import config from '../controllers/config';
 const router = Router();
 
 /**
- * @PATH: /config/events - GET
- * @DESC: Returns an events list
+ * @PATH: /config - GET
+ * @DESC: Returns a list of configurations
  */
 
-router.get('/events', config.get.events);
+router.get('/', config.getConfig);
 
 /**
  * @PATH: /config/events - POST
  * @DESC: Creates a new event
  */
 
-router.post('/events', check.create.events, validator, config.create.events);
+// router.post('/events', check.create.events, validator, config.create.events);
 
 export default router;

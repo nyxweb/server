@@ -7,18 +7,22 @@ import logger from '../../../tools/logger';
 // Models
 import model from '../../../db/models';
 
-const events = async (req: Request, res: Response) => {
+const getOnline = async (req: Request, res: Response) => {
   try {
-    const result = await model._nyxConfig.findOne({
+    const status = await model.MEMB_STAT.findOne({
       where: {
-        name: 'events'
+        memb___id: req.username
       }
     });
 
-    res.json(!result ? null : JSON.parse(result.value));
+    if (!status) {
+      return res.json(null);
+    }
+
+    res.json(status);
   } catch (error) {
     logger.error({ error, res });
   }
 };
 
-export default events;
+export default getOnline;

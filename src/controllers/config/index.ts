@@ -1,7 +1,3 @@
-import get from './get';
-import create from './create';
+import getConfig from './getConfig';
 
-export default {
-  get,
-  create
-};
+export default { getConfig };

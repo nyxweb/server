@@ -19,7 +19,7 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
 
     const decode = jwt.verify(token, process.env.JWT_KEY);
 
-    const userCheck = await model.MEMB_INFO.count({
+    const userCheck = await model.MEMB_INFO.findOne({
       where: {
         memb___id: decode.username,
         jwt_token: token
@@ -28,6 +28,10 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
 
     if (!userCheck) {
       return res.status(403).json({ error: 'Not authorized' });
+    }
+
+    if (Number(userCheck.bloc_code) !== 0) {
+      return res.status(403).json({ error: 'This account has been blocked.' });
     }
 
     req.username = decode.username;

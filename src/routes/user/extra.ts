@@ -4,6 +4,9 @@ import { Router } from 'express';
 import validator from '../../middleware/validator';
 import check from '../../checks/users/extra';
 
+// Auth
+import auth from '../../middleware/auth';
+
 // Controllers
 import extra from '../../controllers/user/extra';
 
@@ -16,6 +19,7 @@ const router = Router();
 
 router.patch(
   '/storage/moveitem',
+  auth,
   check.storage.moveItem,
   validator,
   extra.storage.moveItem

@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 // Validation
 import validator from '../../middleware/validator';
+import auth from '../../middleware/auth';
 import check from '../../checks/users';
 
 // Controllers
@@ -35,27 +36,34 @@ router.post('/', check.account.create, validator, account.create);
  * @desc Returns a list of logs
  */
 
-router.get('/logs', () => {
-  console.log('object');
-});
+router.get('/logs', auth, account.logs);
 
 /**
- * @path /user/account/online - POST
+ * @path /user/account/online - GET
+ * @desc Returns online time info
+ */
+
+router.get('/online', auth, account.getOnline);
+
+/**
+ * @path /user/account/online - PATCH
  * @desc Exchanges online time for {resource}
  */
 
-router.post('/online', () => {
-  console.log('object');
-});
+router.patch('/online', auth, account.exchangeOnline);
 
 /**
  * @path /user/account/password - PATCH
  * @desc Updates account password
  */
 
-router.patch('/password', () => {
-  console.log('object');
-});
+router.patch(
+  '/password',
+  auth,
+  check.account.password,
+  validator,
+  account.password
+);
 
 /**
  * @path /user/account/vip - PATCH

@@ -5,14 +5,24 @@ import { Request, Response } from 'express';
 import logger from '../../../tools/logger';
 
 // Models
-// import model from '../../../db/models';
+import model from '../../../db/models';
 
-const auth = async (req: Request, res: Response) => {
+const getLogs = async (req: Request, res: Response) => {
   try {
-    res.json({ logs: 'here' });
+    const logs = await model._nyxAccountLogs.findAll({
+      where: {
+        account: req.username
+      },
+      attributes: {
+        exclude: ['account', 'hidden']
+      },
+      order: [['timestamp', 'DESC']]
+    });
+
+    res.json(logs);
   } catch (error) {
     logger.error({ error, res });
   }
 };
 
-export default auth;
+export default getLogs;

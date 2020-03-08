@@ -87,6 +87,7 @@ const verify = async (req: Request, res: Response) => {
 
     userJSON.resources.list = JSON.stringify(newResources);
     delete userJSON.resources.resources;
+    userJSON.resources.zen = Number(userJSON.resources.zen);
 
     // Warehouse
     userJSON.warehouse = {

@@ -33,7 +33,7 @@ export default class MEMB_INFO extends Model<MEMB_INFO> {
 
   @Default(0)
   @Column
-  bloc_code: number;
+  bloc_code: string;
 
   @Default(0)
   @Column
