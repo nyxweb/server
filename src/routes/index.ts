@@ -1,5 +1,4 @@
 import user from './user';
-
 import characters from './characters';
 import guilds from './guilds';
 import config from './config';

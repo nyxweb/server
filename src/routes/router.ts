@@ -1,6 +1,5 @@
 import { Router } from 'express';
 
-// Main Routes
 import { user, characters, guilds, config, others, notFound } from '.';
 
 const router = Router();
