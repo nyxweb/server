@@ -14,10 +14,10 @@ export default class Character extends Model<Character> {
   Name: string;
 
   @Column
-  cLevel: string;
+  cLevel: number;
 
-  // @Column
-  // LevelUpPoint: number;
+  @Column
+  LevelUpPoint: number;
 
   @Column
   Class: number;
@@ -25,20 +25,20 @@ export default class Character extends Model<Character> {
   @Column
   Experience: number;
 
-  // @Column
-  // Strength: number;
+  @Column
+  Strength: number;
 
-  // @Column
-  // Dexterity: number;
+  @Column
+  Dexterity: number;
 
-  // @Column
-  // Vitality: number;
+  @Column
+  Vitality: number;
 
-  // @Column
-  // Energy: number;
+  @Column
+  Energy: number;
 
-  // @Column
-  // Leadership: number;
+  @Column
+  Leadership: number;
 
   @Column
   Inventory: BinaryType;
