@@ -66,12 +66,17 @@ router.patch(
 );
 
 /**
+ * @path /user/account/vip - GET
+ * @desc Returns MEMB_INFO data
+ */
+
+router.get('/vip', auth, account.getVip);
+
+/**
  * @path /user/account/vip - PATCH
  * @desc Updates user VIP status
  */
 
-router.patch('/vip', () => {
-  console.log('object');
-});
+router.patch('/vip', auth, check.account.vip, validator, account.buyVip);
 
 export default router;

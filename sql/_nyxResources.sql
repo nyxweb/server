@@ -1,7 +1,7 @@
 USE [MuOnline]
 GO
 
-/****** Object:  Table [dbo].[_nyxResources]    Script Date: 22-Feb-20 18:00:57 ******/
+/****** Object:  Table [dbo].[_nyxResources]    Script Date: 08-Mar-20 18:49:07 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -12,7 +12,7 @@ CREATE TABLE [dbo].[_nyxResources]
 (
   [account] [varchar](10) NOT NULL,
   [items] [varchar](7680) NULL,
-  [zen] [int] NULL,
+  [zen] [bigint] NULL,
   [credits] [int] NULL,
   [resources] [nvarchar](4000) NULL,
   CONSTRAINT [PK__nyxResources] PRIMARY KEY CLUSTERED 
@@ -27,4 +27,5 @@ GO
 
 ALTER TABLE [dbo].[_nyxResources] ADD  CONSTRAINT [DF__nyxResources_credits]  DEFAULT ((0)) FOR [credits]
 GO
+
 

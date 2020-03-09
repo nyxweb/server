@@ -9,7 +9,7 @@ import logger from '../../../tools/logger';
 
 const vip = async (req: Request, res: Response) => {
   try {
-    res.json({ vip: 'here' });
+    res.json({ success: 'here' });
   } catch (error) {
     logger.error({ error, res });
   }

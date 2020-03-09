@@ -5,7 +5,8 @@ import logs from './logs';
 import getOnline from './getOnline';
 import exchangeOnline from './exchangeOnline';
 import password from './password';
-import vip from './vip';
+import getVip from './getVip';
+import buyVip from './buyvip';
 
 export default {
   create,
@@ -15,5 +16,6 @@ export default {
   getOnline,
   exchangeOnline,
   password,
-  vip
+  getVip,
+  buyVip
 };
