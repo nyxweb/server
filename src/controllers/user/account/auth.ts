@@ -10,9 +10,6 @@ import { json } from '../../../tools/json';
 // Models
 import model from '../../../db/models';
 
-// Config
-import config from '../../../configs';
-
 const auth = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
@@ -28,6 +25,16 @@ const auth = async (req: Request, res: Response) => {
 
     if (!user) {
       return res.status(401).json({ error: 'Invalid Credentials' });
+    }
+
+    const config = await model._nyxConfig.findOne({
+      where: {
+        name: 'resources'
+      }
+    });
+
+    if (!config) {
+      return res.status(400).json({ error: 'Resources config not found' });
     }
 
     const token = jwt.sign({ username }, process.env.JWT_KEY);
@@ -46,7 +53,7 @@ const auth = async (req: Request, res: Response) => {
 
     const newResources: any[] = [];
 
-    config.user.resources.forEach((name: string) => {
+    JSON.parse(config.value).forEach((name: string) => {
       const resItem = resources
         ? resources.find((r: any) => r.name === name)
         : false;
@@ -62,13 +69,12 @@ const auth = async (req: Request, res: Response) => {
     });
 
     if (!userJSON.resources || !userJSON.resources.resources) {
-      const nyxRes = new model._nyxResources();
-      nyxRes.account = user.memb___id;
-      nyxRes.resources = JSON.stringify(newResources);
+      const newRes = await model._nyxResources.create({
+        account: user.memb___id,
+        resources: JSON.stringify(newResources)
+      });
 
-      await nyxRes.save();
-
-      userJSON.resources = nyxRes.toJSON();
+      userJSON.resources = newRes.toJSON();
     }
 
     userJSON.resources.list = JSON.stringify(newResources);

@@ -11,10 +11,10 @@ GO
 CREATE TABLE [dbo].[_nyxResources]
 (
   [account] [varchar](10) NOT NULL,
-  [items] [varchar](7680) NULL,
-  [zen] [bigint] NULL,
-  [credits] [int] NULL,
-  [resources] [nvarchar](4000) NULL,
+  [items] [varchar](7680) NOT NULL,
+  [zen] [bigint] NOT NULL,
+  [credits] [int] NOT NULL,
+  [resources] [nvarchar](4000) NOT NULL,
   CONSTRAINT [PK__nyxResources] PRIMARY KEY CLUSTERED 
 (
 	[account] ASC

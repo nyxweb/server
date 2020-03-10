@@ -36,4 +36,9 @@ insert into _nyxConfig
 values
   ('vip', '50')
 
+insert into _nyxConfig
+  (name, value)
+VALUES
+  ('resources', '["chaos","bless","soul","life","creation","rena","stone","bok1","bok2","bok3","bok4","bok5","boh","bol"]')
+
 GO

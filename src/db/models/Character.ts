@@ -134,9 +134,6 @@ export default class Character extends Model<Character> {
   BanChatTime: string;
 
   @Column
-  TotalTime: number;
-
-  @Column
   HOFWins: number;
 
   @HasOne(() => MEMB_STAT, { sourceKey: 'AccountID', foreignKey: 'memb___id' })
