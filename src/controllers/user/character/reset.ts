@@ -64,7 +64,7 @@ const reset = async (req: Request, res: Response) => {
     character.Resets += 1;
     character.Experience = 0;
 
-    if (config.reset_state) {
+    if (config.reset_stats) {
       character.Strength = 100;
       character.Dexterity = 100;
       character.Vitality = 100;
@@ -84,7 +84,8 @@ const reset = async (req: Request, res: Response) => {
         ? 3
         : 4;
 
-      character.LevelUpPoint = config.bonus_stats[classId] * character.Resets;
+      character.LevelUpPoint =
+        config.bonus_stats[classId] * (character.Resets + 1);
     }
 
     await character.save();

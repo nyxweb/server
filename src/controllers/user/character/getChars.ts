@@ -18,7 +18,19 @@ const getChars = async (req: Request, res: Response) => {
         ['Resets', 'DESC'],
         ['Money', 'DESC']
       ],
-      attributes: ['Name', 'Resets', 'cLevel', 'Money']
+      attributes: [
+        'Name',
+        'Resets',
+        'cLevel',
+        'Money',
+        'PkCount',
+        'Strength',
+        'Dexterity',
+        'Vitality',
+        'Energy',
+        'Leadership',
+        'LevelUpPoint'
+      ]
     });
 
     const status = await model.MEMB_STAT.findOne({
