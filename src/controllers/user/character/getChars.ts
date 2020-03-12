@@ -29,7 +29,8 @@ const getChars = async (req: Request, res: Response) => {
         'Vitality',
         'Energy',
         'Leadership',
-        'LevelUpPoint'
+        'LevelUpPoint',
+        'Class'
       ]
     });
 
