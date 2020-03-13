@@ -8,8 +8,7 @@
 
 ```
 NODE_ENV = <production/development>
-PORT = 80
-PORT_DEV = 5000
+PORT = 5000
 JWT_KEY = <your secret key>
 
 SEQUELIZE_URL = mssql://<user>:<password>@<host>:<port>/<database>

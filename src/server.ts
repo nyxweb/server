@@ -4,10 +4,7 @@ import 'dotenv/config';
 import './db/connect';
 import router from './routes/router';
 
-const port =
-  process.env.NODE_ENV === 'production'
-    ? process.env.PORT
-    : process.env.PORT_DEV;
+const port = process.env.PORT;
 
 const app: Application = express();
 
