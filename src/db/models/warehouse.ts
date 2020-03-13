@@ -34,6 +34,7 @@ export default class warehouse extends Model<warehouse> {
   @Column
   DbVersion: number;
 
+  @Default(0)
   @Column
   pw: number;
 

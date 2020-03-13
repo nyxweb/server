@@ -27,7 +27,24 @@ const createAccount = async (req: Request, res: Response) => {
       return res.json({ error: 'This E-Mail address is already in use' });
     }
 
-    await model._nyxResources.create({ account: username });
+    const config = await model._nyxConfig.findOne({
+      where: {
+        name: 'resources'
+      }
+    });
+
+    if (!config) {
+      return res.status(400).json({ error: 'Resources config not found' });
+    }
+
+    const resources: Array<{ name: string; valiue: number }> = JSON.parse(
+      config.value
+    ).map((name: string) => ({ name, value: 0 }));
+
+    await model._nyxResources.create({
+      account: username,
+      resources: JSON.stringify(resources)
+    });
 
     await model.MEMB_INFO.create({
       memb___id: username,
@@ -39,6 +56,7 @@ const createAccount = async (req: Request, res: Response) => {
 
     res.json({ success: 'Registration successful' });
   } catch (error) {
+    console.log(error.message);
     logger.error({ error, res });
   }
 };

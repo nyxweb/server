@@ -81,10 +81,18 @@ const auth = async (req: Request, res: Response) => {
     delete userJSON.resources.resources;
 
     // Warehouse
+    let newWarehouse;
+    if (!userJSON.warehouse) {
+      newWarehouse = model.warehouse.create({
+        AccountID: userJSON.memb___id
+      });
+    }
+
+    newWarehouse = userJSON.warehouse || newWarehouse;
     userJSON.warehouse = {
-      items: userJSON.warehouse.Items.toString('hex'),
-      money: userJSON.warehouse.Money,
-      lock: userJSON.warehouse.pw !== 0
+      items: newWarehouse.Items.toString('hex'),
+      money: newWarehouse.Money,
+      lock: newWarehouse.pw !== 0
     };
 
     res.json(userJSON);
