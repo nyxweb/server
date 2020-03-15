@@ -1,7 +1,7 @@
 import create from './create';
 import auth from './auth';
 import verify from './verify';
-import logs from './logs';
+import getLogs from './getLogs';
 import getOnline from './getOnline';
 import exchangeOnline from './exchangeOnline';
 import password from './password';
@@ -12,7 +12,7 @@ export default {
   create,
   auth,
   verify,
-  logs,
+  getLogs,
   getOnline,
   exchangeOnline,
   password,

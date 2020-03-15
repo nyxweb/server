@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 
 // Tools
 import logger from '../../../tools/logger';
+import { saveLog } from '../../../tools/user/logs';
 
 // Models
 import model from '../../../db/models';
@@ -107,6 +108,22 @@ const saveStats = async (req: Request, res: Response) => {
       },
       { where: { Name } }
     );
+
+    let statsString = '';
+    statsString += Strength ? ` Strength {highlight:${Strength}} ` : '';
+    statsString += Dexterity ? ` Agility {highlight:${Dexterity}} ` : '';
+    statsString += Vitality ? ` Vitality {highlight:${Vitality}} ` : '';
+    statsString += Energy ? ` Energy {highlight:${Energy}} ` : '';
+    statsString += Leadership ? ` Command {highlight:${Leadership}} ` : '';
+
+    saveLog({
+      account: req.username,
+      module: 'stats',
+      message: `Stats added on {char:${
+        character.Name
+      }} ( ${statsString.trim()} ).`,
+      ip: req.ip
+    });
 
     res.json({ success: `Your stats was saved, ${character.Name}` });
   } catch (error) {

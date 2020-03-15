@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 
 // Tools
 import logger from '../../../tools/logger';
+import { saveLog } from '../../../tools/user/logs';
 
 // Models
 import model from '../../../db/models';
@@ -87,6 +88,15 @@ const reset = async (req: Request, res: Response) => {
       character.LevelUpPoint =
         config.bonus_stats[classId] * (character.Resets + 1);
     }
+
+    saveLog({
+      account: req.username,
+      module: 'reset',
+      message: `Reset number {highlight:${
+        character.Resets
+      }} completed for {highlight:${resetCost.toLocaleString()}} zen.`,
+      ip: req.ip
+    });
 
     await character.save();
 

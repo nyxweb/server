@@ -14,7 +14,7 @@ const getOne = async (req: Request, res: Response) => {
     const result = await model.Character.findOne({
       where: { Name },
       attributes: {
-        exclude: ['Quest', 'Inventory', 'AccountID', 'MapPosX', 'MapPosY']
+        exclude: ['Quest', 'Inventory', 'AccountID']
       },
       include: [
         {
@@ -28,6 +28,9 @@ const getOne = async (req: Request, res: Response) => {
           attributes: {
             exclude: ['Id']
           }
+        },
+        {
+          model: model.GuildMember
         }
       ]
     });

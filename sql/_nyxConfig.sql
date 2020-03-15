@@ -46,4 +46,9 @@ insert into _nyxConfig
 VALUES
   ('stats', '32767')
 
+insert into _nyxConfig
+  (name, value)
+VALUES
+  ('downloads', '[{"name":"NyxWeb Client","sound":true,"host":"DarksTeam","size":"420GB","upload":0,"link":"https://darksteam.net"}]')
+
 GO

@@ -27,7 +27,7 @@ const getChars = async (req: Request, res: Response) => {
         ['Name', 'ASC']
       ],
       attributes: {
-        exclude: ['Quest', 'Inventory', 'AccountID', 'MapPosX', 'MapPosY']
+        exclude: ['Quest', 'Inventory', 'AccountID']
       },
       include: [
         {

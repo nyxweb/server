@@ -36,7 +36,7 @@ router.post('/', check.account.create, validator, account.create);
  * @desc Returns a list of logs
  */
 
-router.get('/logs', auth, account.logs);
+router.get('/logs', auth, account.getLogs);
 
 /**
  * @path /user/account/online - GET

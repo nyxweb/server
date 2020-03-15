@@ -59,10 +59,10 @@ const buyVip = async (req: Request, res: Response) => {
     await resources.save();
 
     const time = vipDays * 24 * 60 * 60;
-    account.IsVip = 1;
     account.VipExpirationTime = account.IsVip
       ? account.VipExpirationTime + time
-      : time;
+      : Math.floor(Date.now() / 1000) + time;
+    account.IsVip = 1;
 
     await account.save();
 

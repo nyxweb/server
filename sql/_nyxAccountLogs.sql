@@ -13,7 +13,7 @@ CREATE TABLE [dbo].[_nyxAccountLogs]
   [account] [varchar](10) NOT NULL,
   [module] [varchar](20) NULL,
   [timestamp] [bigint] NOT NULL,
-  [message] [varchar](100) NOT NULL,
+  [message] [varchar](5000) NOT NULL,
   [hidden] [varchar](500) NULL,
   [ip] [varchar](40) NOT NULL
 ) ON [PRIMARY]
