@@ -14,7 +14,7 @@ CREATE TABLE [dbo].[_nyxAccountLogs]
   [module] [varchar](20) NULL,
   [timestamp] [bigint] NOT NULL,
   [message] [varchar](5000) NOT NULL,
-  [hidden] [varchar](500) NULL,
+  [hidden] [varchar](5000) NULL,
   [ip] [varchar](40) NOT NULL
 ) ON [PRIMARY]
 GO

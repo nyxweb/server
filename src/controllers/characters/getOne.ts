@@ -11,10 +11,10 @@ const getOne = async (req: Request, res: Response) => {
   try {
     const { name: Name } = req.params;
 
-    const result = await model.Character.findOne({
+    const character = await model.Character.findOne({
       where: { Name },
       attributes: {
-        exclude: ['Quest', 'Inventory', 'AccountID']
+        exclude: ['Quest', 'AccountID']
       },
       include: [
         {
@@ -34,6 +34,27 @@ const getOne = async (req: Request, res: Response) => {
         }
       ]
     });
+
+    const result: any = character.toJSON();
+
+    result.totalPoints =
+      result.LevelUpPoint +
+      result.Strength +
+      result.Dexterity +
+      result.Vitality +
+      result.Energy +
+      result.Leadership;
+
+    [
+      'LevelUpPoint',
+      'Strength',
+      'Dexterity',
+      'Vitality',
+      'Energy',
+      'Leadership'
+    ].forEach(key => delete result[key]);
+
+    result.Inventory = result.Inventory.toString('hex');
 
     res.json(result);
   } catch (error) {
