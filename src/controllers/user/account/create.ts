@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 
 // Tools
 import logger from '../../../tools/logger';
+import { saveLog } from '../../../tools/user/logs';
 
 // Models
 import model from '../../../db/models';
@@ -52,6 +53,13 @@ const createAccount = async (req: Request, res: Response) => {
       mail_addr: email,
       memb_name: Date.now().toString(),
       reg_ip: req.ip
+    });
+
+    saveLog({
+      account: username,
+      module: 'register',
+      message: `Account was initially created.`,
+      ip: req.ip
     });
 
     res.json({ success: 'Registration successful' });

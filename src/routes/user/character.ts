@@ -3,7 +3,7 @@ import { Router } from 'express';
 // Validation
 import validator from '../../middleware/validator';
 import auth from '../../middleware/auth';
-import check from '../../checks/users';
+import check from '../../validation/users';
 
 // Controllers
 import character from '../../controllers/user/character';
@@ -29,9 +29,13 @@ router.patch('/reset', auth, check.character.reset, validator, character.reset);
  * @desc Updates character stats
  */
 
-router.patch('/addstats', () => {
-  console.log('object');
-});
+router.patch(
+  '/stats',
+  auth,
+  check.character.stats,
+  validator,
+  character.saveStats
+);
 
 /**
  * @path /user/character/class - PATCH

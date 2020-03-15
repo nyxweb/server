@@ -4,10 +4,10 @@ import { Op } from 'sequelize';
 import { Request, Response } from 'express';
 
 // Tools
-import logger from '../../../tools/logger';
+import logger from '../../tools/logger';
 
 // Models
-import model from '../../../db/models';
+import model from '../../db/models';
 
 const getHof = async (req: Request, res: Response) => {
   try {

@@ -62,8 +62,8 @@ const exchangeOnline = async (req: Request, res: Response) => {
 
     saveLog({
       account: req.username,
-      module: 'account/online',
-      message: `Exchanged ${hours} hours for ${credits} credits.`,
+      module: 'online',
+      message: `Exchanged {highlight:${hours}} hours for {highlight:${credits}} credits.`,
       ip: req.ip
     });
 

@@ -10,8 +10,8 @@ import others from '../controllers/others';
 const router = Router();
 
 /**
- * @PATH: /others/market/latest - GET
- * @DESC: Returns latest market items
+ * @path /others/market/latest - GET
+ * @desc Returns latest market items
  */
 
 router.get('/market/latest', others.market.latest);

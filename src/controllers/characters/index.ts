@@ -1,5 +1,11 @@
-import get from './get';
+import getChars from './getChars';
+import getHOF from './getHOF';
+import getOne from './getOne';
+import search from './search';
 
 export default {
-  get
+  getChars,
+  getHOF,
+  getOne,
+  search
 };

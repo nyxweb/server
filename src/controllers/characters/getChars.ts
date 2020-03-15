@@ -2,12 +2,12 @@
 import { Request, Response } from 'express';
 
 // Tools
-import logger from '../../../tools/logger';
+import logger from '../../tools/logger';
 
 // Models
-import model from '../../../db/models';
+import model from '../../db/models';
 
-const getMany = async (req: Request, res: Response) => {
+const getChars = async (req: Request, res: Response) => {
   try {
     const { perPage = 20, page = 1, class: Class } = req.query;
 
@@ -59,4 +59,4 @@ const getMany = async (req: Request, res: Response) => {
   }
 };
 
-export default getMany;
+export default getChars;

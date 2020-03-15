@@ -6,6 +6,7 @@ import { Request, Response } from 'express';
 // Tools
 import logger from '../../../tools/logger';
 import { json } from '../../../tools/json';
+import { saveLog } from '../../../tools/user/logs';
 
 // Models
 import model from '../../../db/models';
@@ -94,6 +95,13 @@ const auth = async (req: Request, res: Response) => {
       money: newWarehouse.Money,
       lock: newWarehouse.pw !== 0
     };
+
+    saveLog({
+      account: userJSON.memb___id,
+      module: 'login',
+      message: `Login action was performed.`,
+      ip: req.ip
+    });
 
     res.json(userJSON);
   } catch (error) {

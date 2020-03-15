@@ -1,5 +1,5 @@
-import get from './get';
+import getMany from './getMany';
 
 export default {
-  get
+  getMany
 };

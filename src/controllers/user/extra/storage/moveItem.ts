@@ -3,13 +3,11 @@ import { Request, Response } from 'express';
 
 // Tools
 import logger from '../../../../tools/logger';
-import { isSlotEmpty, hexDecode } from '../../../../tools/user/storage';
+import { isSlotEmpty } from '../../../../tools/user/storage';
+import { saveLog } from '../../../../tools/user/logs';
 
 // Models
 import model from '../../../../db/models';
-
-// Config
-import config from '../../../../configs';
 
 const moveItem = async (req: Request, res: Response) => {
   try {
@@ -19,7 +17,7 @@ const moveItem = async (req: Request, res: Response) => {
       where: { AccountID: req.username }
     });
 
-    let storage = await model._nyxResources.findOne({
+    const storage = await model._nyxResources.findOne({
       where: { account: req.username }
     });
 
@@ -30,18 +28,6 @@ const moveItem = async (req: Request, res: Response) => {
       warehouse.pw = 0;
       warehouse.EndUseDate = new Date();
       await warehouse.save();
-    }
-
-    if (!storage) {
-      storage = new model._nyxResources();
-      storage.account = req.username;
-      storage.resources = JSON.stringify(
-        config.user.resources.map((name: string) => ({
-          name,
-          value: 0
-        }))
-      );
-      await storage.save();
     }
 
     const warehouseItems = warehouse.Items.toString('hex');
@@ -114,6 +100,16 @@ const moveItem = async (req: Request, res: Response) => {
 
     await warehouse.save();
     await storage.save();
+
+    if (from !== to) {
+      saveLog({
+        account: req.username,
+        module: 'storage',
+        message: `Item {item:${item}} was moved from {highlight:${from}} to {highlight:${to}}.`,
+        ip: req.ip,
+        hidden: `item ${item} moved from slot ${itemSlot} to slot ${newSlot}`
+      });
+    }
 
     res.json({
       success: 'Item moved successfully',

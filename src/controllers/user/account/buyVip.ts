@@ -68,8 +68,8 @@ const buyVip = async (req: Request, res: Response) => {
 
     saveLog({
       account: req.username,
-      module: 'account/vip',
-      message: `Purchased ${vipDays} days VIP status for ${credits} credits.`,
+      module: 'vip',
+      message: `Purchased {highlight:${vipDays}} days VIP status for {highlight:${credits}} credits.`,
       ip: req.ip
     });
 

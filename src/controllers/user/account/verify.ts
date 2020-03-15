@@ -10,9 +10,6 @@ import { json } from '../../../tools/json';
 // Models
 import model from '../../../db/models';
 
-// Config
-import config from '../../../configs';
-
 const verify = async (req: Request, res: Response) => {
   try {
     const token = req.header('nyxAuthToken');
@@ -50,6 +47,16 @@ const verify = async (req: Request, res: Response) => {
       return res.status(403).json({ error: 'Not authorized' });
     }
 
+    const config = await model._nyxConfig.findOne({
+      where: {
+        name: 'resources'
+      }
+    });
+
+    if (!config) {
+      return res.status(400).json({ error: 'Resources config not found' });
+    }
+
     const userJSON: any = user.toJSON();
 
     // Resources
@@ -60,7 +67,7 @@ const verify = async (req: Request, res: Response) => {
 
     const newResources: any[] = [];
 
-    config.user.resources.forEach((name: string) => {
+    JSON.parse(config.value).forEach((name: string) => {
       const resItem = resources
         ? resources.find((r: any) => r.name === name)
         : false;
@@ -76,11 +83,10 @@ const verify = async (req: Request, res: Response) => {
     });
 
     if (!userJSON.resources || !userJSON.resources.resources) {
-      const nyxRes = new model._nyxResources();
-      nyxRes.account = user.memb___id;
-      nyxRes.resources = JSON.stringify(newResources);
-
-      await nyxRes.save();
+      const nyxRes = await model._nyxResources.create({
+        account: user.memb___id,
+        resources: JSON.stringify(newResources)
+      });
 
       userJSON.resources = nyxRes.toJSON();
     }

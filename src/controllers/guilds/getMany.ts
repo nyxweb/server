@@ -1,10 +1,10 @@
-import sequelize from '../../../db/connect';
+import sequelize from '../../db/connect';
 
 // Types
 import { Request, Response } from 'express';
 
 // Tools
-import logger from '../../../tools/logger';
+import logger from '../../tools/logger';
 
 const getMany = async (req: Request, res: Response) => {
   try {

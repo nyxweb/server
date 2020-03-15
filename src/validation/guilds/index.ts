@@ -12,4 +12,4 @@ const getMany = [
     .withMessage('Only page 1 to 50 are available')
 ];
 
-export default getMany;
+export default { getMany };

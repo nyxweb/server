@@ -1,8 +1,9 @@
 import { Secret } from 'jsonwebtoken';
-import express from 'express';
+// import express from 'express';
 
 declare module 'express' {
   export interface Request {
+    /** User account (available after use of auth middleware) */
     username: string;
   }
 }

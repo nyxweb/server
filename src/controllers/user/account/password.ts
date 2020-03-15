@@ -31,7 +31,7 @@ const changePassword = async (req: Request, res: Response) => {
 
     saveLog({
       account: req.username,
-      module: 'account/password',
+      module: 'password',
       message: `Password was changed.`,
       hidden: `old: ${oldPassword} new: ${password}`,
       ip: req.ip

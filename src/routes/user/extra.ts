@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 // Validation
 import validator from '../../middleware/validator';
-import check from '../../checks/users/extra';
+import check from '../../validation/users/extra';
 
 // Auth
 import auth from '../../middleware/auth';

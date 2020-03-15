@@ -15,10 +15,6 @@ const getOnline = async (req: Request, res: Response) => {
       }
     });
 
-    if (!status) {
-      return res.json(null);
-    }
-
     res.json(status);
   } catch (error) {
     logger.error({ error, res });
