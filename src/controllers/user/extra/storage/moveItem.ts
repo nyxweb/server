@@ -13,6 +13,16 @@ const moveItem = async (req: Request, res: Response) => {
   try {
     const { itemSlot, newSlot, from, to } = req.body;
 
+    const config = await model._nyxConfig.findOne({
+      where: { name: 'itemsList' }
+    });
+
+    if (!config) {
+      return res.status(400).json({
+        error: 'ItemsList config was not found.'
+      });
+    }
+
     let warehouse = await model.warehouse.findOne({
       where: { AccountID: req.username }
     });
@@ -60,7 +70,8 @@ const moveItem = async (req: Request, res: Response) => {
         newSlot,
         item,
         warehouseItems,
-        to === from ? itemSlot : false
+        to === from ? itemSlot : false,
+        JSON.parse(config.value)
       )
     ) {
       return res

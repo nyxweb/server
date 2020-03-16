@@ -11,6 +11,13 @@ import { saveLog } from '../../../tools/user/logs';
 // Models
 import model from '../../../db/models';
 
+interface Resource {
+  group: number;
+  id: number;
+  level: number;
+  value: number;
+}
+
 const auth = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
@@ -47,27 +54,21 @@ const auth = async (req: Request, res: Response) => {
     const userJSON: any = user.toJSON();
 
     // Resources
-    const resources =
+    const resources: Resource[] | false =
       userJSON.resources && userJSON.resources.resources
         ? json.parse(userJSON.resources.resources)
         : false;
 
-    const newResources: any[] = [];
-
-    JSON.parse(config.value).forEach((name: string) => {
-      const resItem = resources
-        ? resources.find((r: any) => r.name === name)
-        : false;
-
-      if (resItem) {
-        newResources.push({
-          name,
-          value: resItem.value
-        });
-      } else {
-        newResources.push({ name, value: 0 });
+    const newResources: Resource[] = JSON.parse(config.value).map(
+      (r: Resource) => {
+        const find =
+          resources &&
+          resources.find(
+            re => re.group === r.group && re.id === r.id && re.level === r.level
+          );
+        return !resources || !find ? r : find;
       }
-    });
+    );
 
     if (!userJSON.resources || !userJSON.resources.resources) {
       const newRes = await model._nyxResources.create({

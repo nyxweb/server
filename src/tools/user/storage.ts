@@ -1,7 +1,3 @@
-import itemsList from '../../configs/items/list.json';
-
-const itemsDB: any = itemsList;
-
 const hex2dec = (hex: string) => parseInt(hex, 16);
 
 const hexDecode = (hex: string) => {
@@ -49,7 +45,8 @@ const hexDecode = (hex: string) => {
 
 const generateSlotsHolders = (
   itemsHex: string,
-  oneToOneSlot: boolean | number = false
+  oneToOneSlot: boolean | number = false,
+  itemsList: any
 ): number[][] | false => {
   const slots: number[][] = [];
   const hexArray = itemsHex.toLowerCase().match(/[a-f0-9]{32}/g);
@@ -77,8 +74,8 @@ const generateSlotsHolders = (
       if (hex !== 'f'.repeat(32)) {
         const item = hexDecode(hex);
         const itemData =
-          item && itemsDB[item.group] && itemsDB[item.group].items[item.id]
-            ? itemsDB[item.group].items[item.id]
+          item && itemsList[item.group] && itemsList[item.group].items[item.id]
+            ? itemsList[item.group].items[item.id]
             : false;
 
         if (item && itemData) {
@@ -107,12 +104,13 @@ const isSlotEmpty = (
   itemHex: string,
   warehouseItems: string,
   /** true if the item is being moved in the same place */
-  oneToOne: boolean | number = false
+  oneToOne: boolean | number = false,
+  itemsList: any
 ): boolean => {
   const item = hexDecode(itemHex);
   const itemData =
-    item && itemsDB[item.group] && itemsDB[item.group].items[item.id]
-      ? itemsDB[item.group].items[item.id]
+    item && itemsList[item.group] && itemsList[item.group].items[item.id]
+      ? itemsList[item.group].items[item.id]
       : false;
 
   if (!item || !itemData) {
@@ -121,7 +119,7 @@ const isSlotEmpty = (
 
   const row = Math.floor(slot / 8);
   const column = Math.floor(slot - row * 8);
-  const slots = generateSlotsHolders(warehouseItems, oneToOne);
+  const slots = generateSlotsHolders(warehouseItems, oneToOne, itemsList);
   let isEmpty = true;
 
   if (!slots) {

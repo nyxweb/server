@@ -16,7 +16,7 @@ const getConfig = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Could not load configuration' });
     }
 
-    const configs: { [key: string]: any } = {};
+    const configs: { [key: string]: string } = {};
 
     config.forEach(cfg => {
       const parsed = json.parse(cfg.value);
