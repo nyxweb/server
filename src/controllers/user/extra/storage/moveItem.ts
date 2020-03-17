@@ -36,7 +36,6 @@ const moveItem = async (req: Request, res: Response) => {
       warehouse.AccountID = req.username;
       warehouse.Items = Buffer.from('f'.repeat(3840), 'hex');
       warehouse.pw = 0;
-      warehouse.EndUseDate = new Date();
       await warehouse.save();
     }
 

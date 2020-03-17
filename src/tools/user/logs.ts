@@ -15,7 +15,7 @@ const saveLog = async ({ account, message, module, hidden, ip }: SaveLog) => {
   log.module = module;
   log.hidden = hidden;
   log.ip = ip;
-  log.timestamp = Math.floor(Date.now() / 1000);
+  log.timestamp = Date.now();
 
   await log.save();
 };

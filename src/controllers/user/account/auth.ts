@@ -5,7 +5,6 @@ import { Request, Response } from 'express';
 
 // Tools
 import logger from '../../../tools/logger';
-import { json } from '../../../tools/json';
 import { saveLog } from '../../../tools/user/logs';
 
 // Models
@@ -56,7 +55,7 @@ const auth = async (req: Request, res: Response) => {
     // Resources
     const resources: Resource[] | false =
       userJSON.resources && userJSON.resources.resources
-        ? json.parse(userJSON.resources.resources)
+        ? JSON.parse(userJSON.resources.resources)
         : false;
 
     const newResources: Resource[] = JSON.parse(config.value).map(
@@ -83,18 +82,19 @@ const auth = async (req: Request, res: Response) => {
     delete userJSON.resources.resources;
 
     // Warehouse
-    let newWarehouse;
+    let warehouse;
     if (!userJSON.warehouse) {
-      newWarehouse = model.warehouse.create({
-        AccountID: userJSON.memb___id
+      warehouse = await model.warehouse.create({
+        AccountID: userJSON.memb___id,
+        Items: Buffer.from('f'.repeat(3840), 'hex')
       });
     }
 
-    newWarehouse = userJSON.warehouse || newWarehouse;
+    warehouse = userJSON.warehouse || warehouse;
     userJSON.warehouse = {
-      items: newWarehouse.Items.toString('hex'),
-      money: newWarehouse.Money,
-      lock: newWarehouse.pw !== 0
+      items: warehouse.Items.toString('hex'),
+      money: warehouse.Money,
+      lock: warehouse.pw !== 0
     };
 
     saveLog({
