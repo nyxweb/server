@@ -3,8 +3,11 @@ import {
   Column,
   Model,
   PrimaryKey,
-  Default
+  Default,
+  HasOne
 } from 'sequelize-typescript';
+
+import AccountCharacter from './AccountCharacter';
 
 @Table
 export default class MEMB_STAT extends Model<MEMB_STAT> {
@@ -25,4 +28,7 @@ export default class MEMB_STAT extends Model<MEMB_STAT> {
   @Default(0)
   @Column
   TotalTime: number;
+
+  @HasOne(() => AccountCharacter, { sourceKey: 'memb___id', foreignKey: 'Id' })
+  account: AccountCharacter;
 }

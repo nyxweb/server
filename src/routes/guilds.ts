@@ -16,4 +16,11 @@ const router = Router();
 
 router.get('/', check.getMany, validator, guilds.getMany);
 
+/**
+ * @path /characters - GET
+ * @desc Returns characters
+ */
+
+router.get('/:name', check.getOne, validator, guilds.getOne);
+
 export default router;

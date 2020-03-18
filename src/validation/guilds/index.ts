@@ -1,4 +1,4 @@
-import { query } from 'express-validator';
+import { query, param } from 'express-validator';
 
 const getMany = [
   query('limit')
@@ -12,4 +12,10 @@ const getMany = [
     .withMessage('Only page 1 to 50 are available')
 ];
 
-export default { getMany };
+const getOne = [
+  param('name', 'Invalid guild name')
+    .isString()
+    .isLength({ min: 1, max: 10 })
+];
+
+export default { getMany, getOne };

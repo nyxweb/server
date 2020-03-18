@@ -97,18 +97,6 @@ const saveStats = async (req: Request, res: Response) => {
         .json({ error: `You cannot add more than ${maxStats} Command` });
     }
 
-    await model.Character.update(
-      {
-        LevelUpPoint: character.LevelUpPoint - statsSum,
-        Strength: character.Strength + Strength,
-        Dexterity: character.Dexterity + Dexterity,
-        Vitality: character.Vitality + Vitality,
-        Energy: character.Energy + Energy,
-        Leadership: character.Leadership + Leadership
-      },
-      { where: { Name } }
-    );
-
     let statsString = '';
     statsString += Strength ? ` Strength {highlight:${Strength}} ` : '';
     statsString += Dexterity ? ` Agility {highlight:${Dexterity}} ` : '';
@@ -116,14 +104,27 @@ const saveStats = async (req: Request, res: Response) => {
     statsString += Energy ? ` Energy {highlight:${Energy}} ` : '';
     statsString += Leadership ? ` Command {highlight:${Leadership}} ` : '';
 
-    saveLog({
-      account: req.username,
-      module: 'stats',
-      message: `Stats added on {char:${
-        character.Name
-      }} ( ${statsString.trim()} ).`,
-      ip: req.ip
-    });
+    await Promise.all([
+      model.Character.update(
+        {
+          LevelUpPoint: character.LevelUpPoint - statsSum,
+          Strength: character.Strength + Strength,
+          Dexterity: character.Dexterity + Dexterity,
+          Vitality: character.Vitality + Vitality,
+          Energy: character.Energy + Energy,
+          Leadership: character.Leadership + Leadership
+        },
+        { where: { Name } }
+      ),
+      saveLog({
+        account: req.username,
+        module: 'stats',
+        message: `Stats added on {char:${
+          character.Name
+        }} ( ${statsString.trim()} ).`,
+        ip: req.ip
+      })
+    ]);
 
     res.json({ success: `Your stats was saved, ${character.Name}` });
   } catch (error) {

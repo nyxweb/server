@@ -19,23 +19,23 @@ const changePassword = async (req: Request, res: Response) => {
       }
     });
 
-    let oldPassword;
     if (!account) {
       return res.json({ error: 'The password you entered is incorrect.' });
-    } else {
-      oldPassword = account.memb__pwd;
-      account.memb__pwd = newPassword;
-
-      await account.save();
     }
 
-    saveLog({
-      account: req.username,
-      module: 'password',
-      message: `Password was changed.`,
-      hidden: `old: ${oldPassword} new: ${password}`,
-      ip: req.ip
-    });
+    const oldPassword = account.memb__pwd;
+    account.memb__pwd = newPassword;
+
+    await Promise.all([
+      account.save(),
+      saveLog({
+        account: req.username,
+        module: 'password',
+        message: `Password was changed.`,
+        hidden: `old: ${oldPassword} new: ${password}`,
+        ip: req.ip
+      })
+    ]);
 
     res.json({ success: 'Your password was successfully changed!' });
   } catch (error) {

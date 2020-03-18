@@ -55,17 +55,18 @@ const exchangeOnline = async (req: Request, res: Response) => {
     const timeLeft = status.TotalTime - hours * 60;
 
     status.TotalTime = timeLeft;
-    await status.save();
-
     resources.credits += credits;
-    await resources.save();
 
-    saveLog({
-      account: req.username,
-      module: 'online',
-      message: `Exchanged {highlight:${hours}} hours for {highlight:${credits}} credits.`,
-      ip: req.ip
-    });
+    await Promise.all([
+      status.save(),
+      resources.save(),
+      saveLog({
+        account: req.username,
+        module: 'online',
+        message: `Exchanged {highlight:${hours}} hours for {highlight:${credits}} credits.`,
+        ip: req.ip
+      })
+    ]);
 
     res.json({
       success: `You exchanged ${hours} hours and received ${credits} credits`,

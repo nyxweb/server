@@ -108,11 +108,10 @@ const moveItem = async (req: Request, res: Response) => {
     warehouse.Items = Buffer.from(updatedWarehouse, 'hex');
     storage.items = updatedStorage;
 
-    await warehouse.save();
-    await storage.save();
+    await Promise.all([warehouse.save(), storage.save()]);
 
     if (from !== to) {
-      saveLog({
+      await saveLog({
         account: req.username,
         module: 'storage',
         message: `Item {item:${item}} was moved from {highlight:${from}} to {highlight:${to}}.`,

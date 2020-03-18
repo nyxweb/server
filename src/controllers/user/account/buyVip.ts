@@ -56,7 +56,6 @@ const buyVip = async (req: Request, res: Response) => {
     }
 
     resources.credits -= credits;
-    await resources.save();
 
     const time = vipDays * 24 * 60 * 60;
     account.VipExpirationTime = account.IsVip
@@ -64,14 +63,16 @@ const buyVip = async (req: Request, res: Response) => {
       : Math.floor(Date.now() / 1000) + time;
     account.IsVip = 1;
 
-    await account.save();
-
-    saveLog({
-      account: req.username,
-      module: 'vip',
-      message: `Purchased {highlight:${vipDays}} days VIP status for {highlight:${credits}} credits.`,
-      ip: req.ip
-    });
+    await Promise.all([
+      resources.save(),
+      account.save(),
+      saveLog({
+        account: req.username,
+        module: 'vip',
+        message: `Purchased {highlight:${vipDays}} days VIP status for {highlight:${credits}} credits.`,
+        ip: req.ip
+      })
+    ]);
 
     res.json({
       success: 'You purchased VIP successfully',

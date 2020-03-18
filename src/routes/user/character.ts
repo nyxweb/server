@@ -51,8 +51,6 @@ router.patch('/class', () => {
  * @desc Updates character name
  */
 
-router.patch('/name', () => {
-  console.log('object');
-});
+router.patch('/name', auth, check.character.name, validator, character.name);
 
 export default router;

@@ -89,16 +89,18 @@ const reset = async (req: Request, res: Response) => {
         config.bonus_stats[classId] * (character.Resets + 1);
     }
 
-    saveLog({
-      account: req.username,
-      module: 'reset',
-      message: `Reset number {highlight:${
-        character.Resets
-      }} completed for {highlight:${resetCost.toLocaleString()}} zen.`,
-      ip: req.ip
-    });
-
-    await character.save();
+    await Promise.all([
+      character.save(),
+      saveLog({
+        account: req.username,
+        module: 'reset',
+        message: `{char:${character.Name}} completed reset number {highlight:${
+          character.Resets
+        }} for {highlight:${resetCost.toLocaleString()}} zen.`,
+        hidden: `{"name":"${character.Name}","reset":"${character.Resets}","cost":${resetCost}}`,
+        ip: req.ip
+      })
+    ]);
 
     res.json({
       success: `Reset number ${character.Resets} completed successfully.`

@@ -38,17 +38,22 @@ values
 insert into _nyxConfig
   (name, value)
 VALUES
-  ('resources', '[{"group":12,"id":15,"level":0,"value":0},{"group":14,"id":13,"level":0,"value":0},{"group":14,"id":14,"level":0,"value":0},{"group":14,"id":16,"level":0,"value":0},{"group":14,"id":22,"level":0,"value":0},{"group":14,"id":21,"level":0,"value":0},{"group":14,"id":21,"level":1,"value":0},{"group":14,"id":11,"level":8,"value":0},{"group":14,"id":11,"level":9,"value":0},{"group":14,"id":11,"level":10,"value":0},{"group":14,"id":11,"level":11,"value":0},{"group":14,"id":11,"level":12,"value":0},{"group":14,"id":11,"level":6,"value":0},{"group":14,"id":11,"level":0,"value":0}]')
-
-insert into _nyxConfig
-  (name, value)
-VALUES
   ('stats', '32767')
 
 insert into _nyxConfig
   (name, value)
 VALUES
   ('downloads', '[{"name":"NyxWeb Client","sound":true,"host":"DarksTeam","size":"420GB","upload":0,"link":"https://darksteam.net"}]')
+
+insert into _nyxConfig
+  (name, value)
+values
+  ('change_name', '{"cost":500,"min_length":2,"max_length":10}')
+
+insert into _nyxConfig
+  (name, value)
+VALUES
+  ('resources', '[{"group":12,"id":15,"level":0,"value":0},{"group":14,"id":13,"level":0,"value":0},{"group":14,"id":14,"level":0,"value":0},{"group":14,"id":16,"level":0,"value":0},{"group":14,"id":22,"level":0,"value":0},{"group":14,"id":21,"level":0,"value":0},{"group":14,"id":21,"level":1,"value":0},{"group":14,"id":11,"level":8,"value":0},{"group":14,"id":11,"level":9,"value":0},{"group":14,"id":11,"level":10,"value":0},{"group":14,"id":11,"level":11,"value":0},{"group":14,"id":11,"level":12,"value":0},{"group":14,"id":11,"level":6,"value":0},{"group":14,"id":11,"level":0,"value":0}]')
 
 insert into _nyxConfig
   (name, value)

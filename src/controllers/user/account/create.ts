@@ -38,25 +38,25 @@ const createAccount = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Resources config not found' });
     }
 
-    await model._nyxResources.create({
-      account: username,
-      resources: config.value
-    });
-
-    await model.MEMB_INFO.create({
-      memb___id: username,
-      memb__pwd: password,
-      mail_addr: email,
-      memb_name: Date.now().toString(),
-      reg_ip: req.ip
-    });
-
-    saveLog({
-      account: username,
-      module: 'register',
-      message: `Account was created.`,
-      ip: req.ip
-    });
+    await Promise.all([
+      model._nyxResources.create({
+        account: username,
+        resources: config.value
+      }),
+      model.MEMB_INFO.create({
+        memb___id: username,
+        memb__pwd: password,
+        mail_addr: email,
+        memb_name: Date.now().toString(),
+        reg_ip: req.ip
+      }),
+      saveLog({
+        account: username,
+        module: 'register',
+        message: `Account was created.`,
+        ip: req.ip
+      })
+    ]);
 
     res.json({ success: 'Registration successful' });
   } catch (error) {

@@ -17,7 +17,17 @@ const stats = [
   check('Leadership', 'Invalid Command value').matches(/^\d{0,5}$/)
 ];
 
+const name = [
+  check('name', 'Please choose a character')
+    .isString()
+    .isLength({ min: 1, max: 10 }),
+  check('newName', 'Please choose your new name')
+    .isString()
+    .isLength({ min: 1, max: 10 })
+];
+
 export default {
   reset,
-  stats
+  stats,
+  name
 };
