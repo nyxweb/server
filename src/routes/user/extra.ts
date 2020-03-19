@@ -30,18 +30,14 @@ router.patch(
  * @desc Deposits resources
  */
 
-router.patch('/resources/withdraw', () => {
-  console.log('object');
-});
+router.patch('/resources/deposit', auth, extra.resources.deposit);
 
 /**
  * @path /user/extra/resources/withdraw - PATCH
  * @desc Withdraws resources to warehouse
  */
 
-router.patch('/resources/withdraw', () => {
-  console.log('object');
-});
+// router.patch('/resources/withdraw', auth, extra.resources.withdraw);
 
 /**
  * @path /user/extra/auction - POST

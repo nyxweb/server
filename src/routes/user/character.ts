@@ -42,9 +42,13 @@ router.patch(
  * @desc Updates character class
  */
 
-router.patch('/class', () => {
-  console.log('object');
-});
+router.patch(
+  '/class',
+  auth,
+  check.character.cClass,
+  validator,
+  character.cClass
+);
 
 /**
  * @path /user/character/name - PATCH

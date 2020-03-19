@@ -26,8 +26,16 @@ const name = [
     .isLength({ min: 1, max: 10 })
 ];
 
+const cClass = [
+  check('name', 'Please choose a character')
+    .isString()
+    .isLength({ min: 1, max: 10 }),
+  check('newClass', 'Please choose your new class').matches(/^[0-9]{1,2}$/)
+];
+
 export default {
   reset,
   stats,
-  name
+  name,
+  cClass
 };

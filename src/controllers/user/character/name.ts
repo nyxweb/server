@@ -32,6 +32,12 @@ const changeName = async (req: Request, res: Response) => {
 
     const config = JSON.parse(_config.value);
 
+    if (!config.enabled) {
+      return res
+        .status(400)
+        .json({ error: `Change Name is currently disabled.` });
+    }
+
     if (
       newName.length < config.min_length ||
       newName.length > config.max_length
