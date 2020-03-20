@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 // Tools
 import logger from '../../../../tools/logger';
-import { isSlotEmpty } from '../../../../tools/user/storage';
+import { storage as itemsStorage } from '../../../../tools/items';
 import { saveLog } from '../../../../tools/user/logs';
 
 // Models
@@ -65,7 +65,7 @@ const moveItem = async (req: Request, res: Response) => {
 
     if (
       to === 'warehouse' &&
-      !isSlotEmpty(
+      !itemsStorage.isSlotEmpty(
         newSlot,
         item,
         warehouseItems,
