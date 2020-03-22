@@ -79,7 +79,14 @@ const verify = async (req: Request, res: Response) => {
           resources.find(
             re => re.group === r.group && re.id === r.id && re.level === r.level
           );
-        return !resources || !find ? r : find;
+        return !find ? r : find;
+      }
+    );
+
+    await model._nyxResources.update(
+      { resources: JSON.stringify(newResources) },
+      {
+        where: { account: decode.username }
       }
     );
 

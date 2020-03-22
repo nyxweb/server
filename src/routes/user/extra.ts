@@ -37,6 +37,7 @@ router.patch('/resources/deposit', auth, extra.resources.deposit);
  * @desc Withdraws resources to warehouse
  */
 
+router.patch('/resources/withdraw', auth, extra.resources.withdraw);
 // router.patch('/resources/withdraw', auth, extra.resources.withdraw);
 
 /**

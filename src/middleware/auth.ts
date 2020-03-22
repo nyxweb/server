@@ -34,7 +34,8 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
       return res.status(403).json({ error: 'This account has been blocked.' });
     }
 
-    req.username = decode.username;
+    req.username = userCheck.memb___id;
+    req.admin = userCheck.admin_lvl;
     next();
   } catch (error) {
     logger.error({ error, res });

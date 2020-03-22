@@ -43,6 +43,10 @@ const deposit = async (req: Request, res: Response) => {
     let count = 0;
     let status = true;
     config.forEach(c => {
+      if (!deposits) {
+        return false;
+      }
+
       const find = deposits.find(
         d => d.group === c.group && d.id === c.id && d.level === c.level
       );
@@ -53,7 +57,7 @@ const deposit = async (req: Request, res: Response) => {
       }
     });
 
-    if ((config.length !== deposits.length || !status) && deposits) {
+    if (deposits && (config.length !== deposits.length || !status)) {
       return res.status(400).json({ error: 'Invalid data provided.' });
     }
 
@@ -81,7 +85,8 @@ const deposit = async (req: Request, res: Response) => {
 
     const { itemsHex, resList, foundCount } = findAndRemove(
       warehouseItems,
-      deposits || config
+      deposits ? deposits : config,
+      !!deposits
     );
 
     if (itemsHex.length !== warehouseItems.length) {
@@ -129,15 +134,14 @@ const deposit = async (req: Request, res: Response) => {
       })
     ]);
 
-    if (count && count !== foundCount) {
-      res.json({
-        success: `Deposit ${foundCount} resources from your warehouse successfully.`
-      });
-    } else {
-      res.json({
-        success: `We found and deposit ${foundCount} resources from your warehouse.`
-      });
-    }
+    res.json({
+      success:
+        count && count !== foundCount
+          ? `Deposit ${foundCount} resources from your warehouse successfully.`
+          : `We found and deposit ${foundCount} resources from your warehouse.`,
+      items: itemsHex,
+      resources: modelResources
+    });
   } catch (error) {
     logger.error({ error, res });
   }

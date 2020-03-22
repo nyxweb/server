@@ -1,4 +1,4 @@
-import hexDecode from './decode';
+import { decode } from '.';
 
 interface Item {
   group: number;
@@ -7,24 +7,30 @@ interface Item {
   value: number;
 }
 
-const findAndRemove = (warehouse: string, items: Item[]) => {
+const findAndRemove = (warehouse: string, items: Item[], fixed: boolean) => {
   const resList: Item[] = [];
   let itemsHex = warehouse;
   let foundCount = 0;
 
   warehouse.match(/.{32}/g).forEach(hex => {
     if (hex.toLowerCase() !== 'f'.repeat(32)) {
-      const decoded = hexDecode(hex);
+      const decoded = decode(hex);
       if (decoded) {
-        const match = items.find(
+        const index = items.findIndex(
           r =>
             r.group === decoded.group &&
             r.id === decoded.id &&
             r.level === decoded.level
         );
 
-        if (match) {
+        if (index >= 0 && (items[index].value || !fixed)) {
           foundCount += 1;
+          if (items[index].value > 1) {
+            items[index].value -= 1;
+          } else if (fixed) {
+            items.splice(index, 1);
+          }
+
           // Remove item from the hex
           itemsHex = itemsHex.replace(hex, 'f'.repeat(32));
 
@@ -44,7 +50,10 @@ const findAndRemove = (warehouse: string, items: Item[]) => {
               value: 1
             });
           } else {
-            resList[findInList].value += 1;
+            resList[findInList] = {
+              ...resList[findInList],
+              value: resList[findInList].value + 1
+            };
           }
         }
       }
