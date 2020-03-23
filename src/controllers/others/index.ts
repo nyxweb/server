@@ -1,3 +1,4 @@
 import market from './market';
+import getNews from './getNews';
 
-export default { market };
+export default { market, getNews };

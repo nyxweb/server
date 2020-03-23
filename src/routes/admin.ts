@@ -24,4 +24,11 @@ router.get('/config', auth, admin.getConfig);
 
 router.patch('/config', auth, admin.updateConfig);
 
+/**
+ * @path /admin/news - POST
+ * @desc Creates news
+ */
+
+router.post('/news', auth, admin.postNews);
+
 export default router;

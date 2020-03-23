@@ -16,6 +16,7 @@ try {
       model._nyxResources,
       model._nyxMarket,
       model._nyxAccountLogs,
+      model._nyxNews,
       model.Character,
       model.AccountCharacter,
       model.MEMB_STAT,

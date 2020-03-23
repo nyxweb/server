@@ -10,6 +10,13 @@ import others from '../controllers/others';
 const router = Router();
 
 /**
+ * @path /others/news - GET
+ * @desc Returns news list
+ */
+
+router.get('/news', others.getNews);
+
+/**
  * @path /others/market/latest - GET
  * @desc Returns latest market items
  */

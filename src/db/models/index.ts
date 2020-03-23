@@ -11,6 +11,7 @@ import _nyxConfig from './_nyxConfig';
 import _nyxResources from './_nyxResources';
 import _nyxMarket from './_nyxMarket';
 import _nyxAccountLogs from './_nyxAccountLogs';
+import _nyxNews from './_nyxNews';
 
 export default {
   Character,
@@ -23,5 +24,6 @@ export default {
   _nyxConfig,
   _nyxResources,
   _nyxMarket,
-  _nyxAccountLogs
+  _nyxAccountLogs,
+  _nyxNews
 };
