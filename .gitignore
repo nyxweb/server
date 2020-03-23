@@ -104,3 +104,7 @@ build
 
 # TernJS port file
 .tern-port
+
+# DB Backup
+src/db/backup/*
+*.bak
