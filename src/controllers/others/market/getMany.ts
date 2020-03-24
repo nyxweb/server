@@ -7,17 +7,19 @@ import logger from '../../../tools/logger';
 // Models
 import model from '../../../db/models';
 
-const latest = async (req: Request, res: Response) => {
+const getMany = async (req: Request, res: Response) => {
   try {
+    const { limit } = req.query;
+
     const items = await model._nyxMarket.findAll({
-      limit: 3,
+      limit: limit ? Number(limit) : 20,
       order: [['timestamp', 'DESC']]
     });
 
-    res.json(items || null);
+    res.json(items);
   } catch (error) {
     logger.error({ error, res });
   }
 };
 
-export default latest;
+export default getMany;
