@@ -1,10 +1,25 @@
-import { Table, Column, Model, PrimaryKey } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  PrimaryKey,
+  HasOne,
+  HasMany
+} from 'sequelize-typescript';
+
+import Character from './Character';
 
 @Table
 export default class _nyxMarket extends Model<_nyxMarket> {
   @PrimaryKey
   @Column
+  index: number;
+
+  @Column
   account: string;
+
+  @Column
+  character: string;
 
   @Column
   hex: string;
@@ -50,4 +65,7 @@ export default class _nyxMarket extends Model<_nyxMarket> {
 
   @Column
   timestamp: string;
+
+  @HasOne(() => Character, { sourceKey: 'character', foreignKey: 'Name' })
+  character_: Character;
 }

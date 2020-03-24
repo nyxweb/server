@@ -1,3 +1,3 @@
-import latest from './latest';
+import getMany from './getMany';
 
-export default { latest };
+export default { getMany };

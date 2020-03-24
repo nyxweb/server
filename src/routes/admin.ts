@@ -11,13 +11,6 @@ import admin from '../controllers/admin';
 const router = Router();
 
 /**
- * @path /admin/config - GET
- * @desc Returns config
- */
-
-router.get('/config', auth, admin.getConfig);
-
-/**
  * @path /admin/config - PATCH
  * @desc Updates config
  */

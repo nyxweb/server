@@ -17,10 +17,10 @@ const router = Router();
 router.get('/news', others.getNews);
 
 /**
- * @path /others/market/latest - GET
- * @desc Returns latest market items
+ * @path /others/market - GET
+ * @desc Returns market items
  */
 
-router.get('/market/latest', others.market.latest);
+router.get('/market', others.market.getMany);
 
 export default router;

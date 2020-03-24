@@ -3,7 +3,7 @@ import { Router } from 'express';
 // Validation
 import validator from '../../middleware/validator';
 import auth from '../../middleware/auth';
-import check from '../../validation/users';
+import check from '../../validation/users/account';
 
 // Controllers
 import account from '../../controllers/user/account';
@@ -15,7 +15,7 @@ const router = Router();
  * @desc Authenticates a user
  */
 
-router.post('/auth', check.account.auth, validator, account.auth);
+router.post('/auth', check.auth, validator, account.auth);
 
 /**
  * @path /user/account/verify - POST
@@ -29,7 +29,7 @@ router.post('/verify', account.verify);
  * @desc Creates a new user account
  */
 
-router.post('/', check.account.create, validator, account.create);
+router.post('/', check.create, validator, account.create);
 
 /**
  * @path /user/account/logs - GET
@@ -57,13 +57,7 @@ router.patch('/online', auth, account.exchangeOnline);
  * @desc Updates account password
  */
 
-router.patch(
-  '/password',
-  auth,
-  check.account.password,
-  validator,
-  account.password
-);
+router.patch('/password', auth, check.password, validator, account.password);
 
 /**
  * @path /user/account/vip - GET
@@ -77,6 +71,6 @@ router.get('/vip', auth, account.getVip);
  * @desc Updates user VIP status
  */
 
-router.patch('/vip', auth, check.account.vip, validator, account.buyVip);
+router.patch('/vip', auth, check.vip, validator, account.buyVip);
 
 export default router;

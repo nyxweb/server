@@ -20,7 +20,7 @@ const router = Router();
 router.patch(
   '/storage/moveitem',
   auth,
-  check.storage.moveItem,
+  check.moveItem,
   validator,
   extra.storage.moveItem
 );
@@ -38,24 +38,21 @@ router.patch('/resources/deposit', auth, extra.resources.deposit);
  */
 
 router.patch('/resources/withdraw', auth, extra.resources.withdraw);
-// router.patch('/resources/withdraw', auth, extra.resources.withdraw);
 
 /**
  * @path /user/extra/auction - POST
  * @desc Makes a new bid for item
  */
 
-router.post('/auction', () => {
-  console.log('object');
-});
+// router.post('/auction', () => {
+//   console.log('object');
+// });
 
 /**
- * @path /user/extra/market - POST
- * @desc Adds new item to the market
+ * @path /user/extra/market - PATCH
+ * @desc Buy item from market
  */
 
-router.post('/market', () => {
-  console.log('object');
-});
+router.patch('/market', auth, extra.buyMarketItem);
 
 export default router;
