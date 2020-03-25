@@ -12,9 +12,45 @@ const getMany = async (req: Request, res: Response) => {
     const { limit } = req.query;
 
     const items = await model._nyxMarket.findAll({
-      limit: limit ? Number(limit) : 20,
-      order: [['timestamp', 'DESC']]
+      order: [['timestamp', 'DESC']],
+      limit: limit ? Number(limit) : 30,
+      include: [
+        {
+          model: model.Character,
+          attributes: ['Name'],
+          include: [
+            {
+              model: model.MEMB_STAT,
+              attributes: ['ConnectStat']
+            },
+            {
+              model: model.AccountCharacter,
+              attributes: ['GameIDC']
+            }
+          ]
+        }
+      ]
+      // raw: true
     });
+
+    // const character = await model.Character.findOne({
+    //   attributes: ['Name'],
+    //   order: [
+    //     ['mainCharacter', 'DESC'],
+    //     ['Resets', 'DESC'],
+    //     ['cLevel', 'DESC']
+    //   ],
+    //   include: [
+    //     {
+    //       model: model.MEMB_STAT,
+    //       attributes: ['ConnectStat']
+    //     },
+    //     {
+    //       model: model.AccountCharacter,
+    //       attributes: ['GameIDC']
+    //     }
+    //   ]
+    // });
 
     res.json(items);
   } catch (error) {

@@ -136,6 +136,9 @@ export default class Character extends Model<Character> {
   @Column
   HOFWins: number;
 
+  @Column
+  mainCharacter: number;
+
   @HasOne(() => MEMB_STAT, { sourceKey: 'AccountID', foreignKey: 'memb___id' })
   status: MEMB_STAT;
 

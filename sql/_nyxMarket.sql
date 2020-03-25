@@ -1,7 +1,7 @@
 USE [MuOnline]
 GO
 
-/****** Object:  Table [dbo].[_nyxMarket]    Script Date: 23-Feb-20 20:21:40 ******/
+/****** Object:  Table [dbo].[_nyxMarket]    Script Date: 24-Mar-20 21:54:56 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -10,7 +10,9 @@ GO
 
 CREATE TABLE [dbo].[_nyxMarket]
 (
+  [index] [int] IDENTITY(1,1) NOT NULL,
   [account] [varchar](10) NOT NULL,
+  [character] [nvarchar](10) NOT NULL,
   [hex] [varchar](32) NOT NULL,
   [price] [nvarchar](500) NULL,
   [name] [varchar](15) NOT NULL,
@@ -25,7 +27,7 @@ CREATE TABLE [dbo].[_nyxMarket]
   [exo6] [int] NOT NULL,
   [options] [int] NOT NULL,
   [ancient] [int] NOT NULL,
-  [timestamp] [varchar](15) NOT NULL
+  [timestamp] [bigint] NOT NULL
 ) ON [PRIMARY]
 GO
 
@@ -55,3 +57,5 @@ GO
 
 ALTER TABLE [dbo].[_nyxMarket] ADD  CONSTRAINT [DF__nyxMarket_ancient]  DEFAULT ((0)) FOR [ancient]
 GO
+
+
