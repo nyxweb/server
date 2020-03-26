@@ -9,14 +9,16 @@ import model from '../../db/models';
 
 const getChars = async (req: Request, res: Response) => {
   try {
-    const { perPage = 20, page = 1, class: Class } = req.query;
+    let { perPage = 20, page = 1, class: Class } = req.query;
+    page = Number(page);
+    perPage = Number(perPage);
 
     let where = {};
     if (Class) {
       where = { Class };
     }
 
-    const result = await model.Character.findAll({
+    const result = await model.Character.findAndCountAll({
       where,
       limit: perPage,
       offset: (page - 1) * perPage,
@@ -53,7 +55,10 @@ const getChars = async (req: Request, res: Response) => {
       ]
     });
 
-    res.json(result);
+    res.json({
+      list: result.rows,
+      count: result.count
+    });
   } catch (error) {
     logger.error({ error, res });
   }

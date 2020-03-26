@@ -13,11 +13,14 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.header('nyxAuthToken');
 
-    if (!token) {
+    let decode;
+    try {
+      decode = jwt.verify(token, process.env.JWT_KEY);
+    } catch (error) {}
+
+    if (!token || !decode) {
       return res.status(403).json({ error: 'Not authorized' });
     }
-
-    const decode = jwt.verify(token, process.env.JWT_KEY);
 
     const userCheck = await model.MEMB_INFO.findOne({
       where: {
@@ -31,7 +34,7 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
     }
 
     if (Number(userCheck.bloc_code) !== 0) {
-      return res.status(403).json({ error: 'This account has been blocked.' });
+      return res.status(403).json({ error: 'This account is banned.' });
     }
 
     req.username = userCheck.memb___id;
