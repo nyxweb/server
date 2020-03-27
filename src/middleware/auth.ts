@@ -16,7 +16,9 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
     let decode;
     try {
       decode = jwt.verify(token, process.env.JWT_KEY);
-    } catch (error) {}
+    } catch (error) {
+      decode = null;
+    }
 
     if (!token || !decode) {
       return res.status(403).json({ error: 'Not authorized' });

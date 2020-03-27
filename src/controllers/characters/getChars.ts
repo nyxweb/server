@@ -12,6 +12,7 @@ const getChars = async (req: Request, res: Response) => {
     let { perPage = 20, page = 1, class: Class } = req.query;
     page = Number(page);
     perPage = Number(perPage);
+    Class = Number(Class);
 
     let where = {};
     if (Class) {
