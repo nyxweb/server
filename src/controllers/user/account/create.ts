@@ -41,7 +41,9 @@ const createAccount = async (req: Request, res: Response) => {
     await Promise.all([
       model._nyxResources.create({
         account: username,
-        resources: config.value
+        resources: config.value,
+        items:
+          '16fd16ffffffff7f0008af0000000000037F798259A9007F0580000000000000247FFF29499A005F00C000000000000013cc815e5aa900550540af00000000001508ff486384380000e00000000000001508ff348121350000e00000000000001508ff652522530000e00000000000000504d75e5aa9004400c0000000000000'
       }),
       model.MEMB_INFO.create({
         memb___id: username,

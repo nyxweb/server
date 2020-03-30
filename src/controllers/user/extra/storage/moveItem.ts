@@ -59,7 +59,7 @@ const moveItem = async (req: Request, res: Response) => {
       });
     }
 
-    if (to === 'storage' && storageItems.length / 32 >= 240) {
+    if (to === 'storage' && storageItems.length / 32 >= 165) {
       return res.status(400).json({ error: 'Your Storage is full' });
     }
 
@@ -116,7 +116,7 @@ const moveItem = async (req: Request, res: Response) => {
         module: 'storage',
         message: `Item {item:${item}} was moved from {highlight:${from}} to {highlight:${to}}.`,
         ip: req.ip,
-        hidden: `item ${item} moved from slot ${itemSlot} to slot ${newSlot}`
+        hidden: `{"item":"${item}","from":"${from}","to":"${to}","fromSlot":${itemSlot},"toSlot":${newSlot}}`
       });
     }
 

@@ -15,4 +15,20 @@ const moveItem = [
     .isIn(['warehouse', 'storage'])
 ];
 
-export default { moveItem };
+const withdraw = [
+  check('withdraws', 'Parameter "withdraws" is required.').isArray({
+    min: 1,
+    max: 50
+  })
+];
+
+const deposit = [
+  check('deposits', 'Parameter "deposits" is required.')
+    .optional()
+    .isArray({
+      min: 1,
+      max: 50
+    })
+];
+
+export default { moveItem, withdraw, deposit };
