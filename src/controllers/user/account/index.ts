@@ -6,7 +6,7 @@ import getOnline from './getOnline';
 import exchangeOnline from './exchangeOnline';
 import password from './password';
 import getVip from './getVip';
-import buyVip from './buyvip';
+import buyVip from './buyVip';
 
 export default {
   create,

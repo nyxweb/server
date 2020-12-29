@@ -19,10 +19,12 @@ const getMany = async (req: Request, res: Response) => {
         LEFT JOIN GuildMember ON Character.Name = GuildMember.Name
         WHERE GuildMember.G_Name = Guild.G_Name) AS TotalMembers
       FROM Guild
-      ORDER BY TotalResets DESC
-      OFFSET ${(page - 1) * perPage} ROWS
-      FETCH NEXT ${perPage} ROWS ONLY`,
-      { type: sequelize.QueryTypes.SELECT }
+      ORDER BY TotalResets DESC`,
+      {
+        type: sequelize.QueryTypes.SELECT,
+        limit: perPage,
+        offset: (page - 1) * perPage
+      }
     );
 
     res.json(result);
